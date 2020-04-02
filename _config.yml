@@ -10,8 +10,8 @@ baseurl:          ''
 title:            'ágoston.török'
 
 # Markdown enabled, however don't use more than one paragraph (enforced by `>`)
-description:      >
-  Researcher. Data interpreter. 
+# description:      >
+#  Researcher. Data interpreter. 
 
 # Disqus Comments
 disqus:

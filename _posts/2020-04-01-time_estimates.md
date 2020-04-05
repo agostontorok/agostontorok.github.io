@@ -5,8 +5,6 @@ date: '2020-04-01'
 tags: lean business data science product
 ---
 
-# Why overdue tasks take still a long time to finish?
-
 The prototypical situation that is puzzling me for a while is the following:
 - We estimated 3 days for a task
 - Bob is working on the task for 3 days already
@@ -41,86 +39,7 @@ Where $f(x)$ is the conditional probability of $x$ given that we are considering
 
 So although beyond the peak of the distribution points right after $t$ have a relatively higher probability than points farther away, there are much more points farther away and the curvature is also changing moving away from the peak, so the expected value is actually blowing up. Let's show it with an example. Let's take three cases to illustrate, (1) where the task is in to do and we have not started it yet, (2) where the task is in process for already the estimated time (blowup factor of 1), and (3) where the task is in process for double the estimated time (blowup factor of 2).
 
-
-```python
-%pylab inline
-from scipy.stats import lognorm
-matplotlib.style.use('ggplot')
-
-# parameters of the distribution of the blowup factor
-
-mu = 0  # given that the median is an unbiased estimate of the actual time
-sigma = 1  # the uncertainty
-
-# statistics of the distribution
-
-theoretic_median = exp(mu)
-theoretic_exp_val = exp(mu + sigma ** 2 / 2)
-
-# samples from the distribution
-
-x = np.linspace(0, 12, 1000)
-y = lognorm.pdf(x, s=sigma, scale=exp(mu))
-
-# testing
-
-integrated_exp_val = rv_continuous.expect(lognorm, args=(sigma, ),
-        lb=0, ub=inf, conditional=True)
-np.testing.assert_approx_equal(integrated_exp_val, theoretic_exp_val)
-already_started_task_exp_val = rv_continuous.expect(lognorm,
-        args=(sigma, ), lb=0.001, ub=inf, conditional=True)
-assert already_started_task_exp_val > integrated_exp_val, \
-    'we expect that the E for a task in process is higher than when it was in to do'
-
-# ploting
-
-(fig, axs) = plt.subplots(3, sharex=True, sharey=True,
-                          gridspec_kw={'hspace': 0.3}, figsize=(15, 10))
-
-for (i, time_spent) in enumerate([0, 1, 1.5]):
-    x_fill = np.linspace(time_spent, 12, 1000)
-    y_fill = lognorm.pdf(x_fill, s=sigma, scale=exp(mu))
-    exp_val = rv_continuous.expect(lognorm, args=(sigma, ),
-                                   lb=time_spent, ub=inf,
-                                   conditional=True)
-
-    axs[i].scatter(time_spent, 0, s=200,
-                   label='Current time factor: %.2f' % 0)
-    axs[i].plot(x, y, 'k-', lw=5, alpha=0.6)
-    axs[i].fill_between(
-        x_fill,
-        y_fill * 0,
-        y_fill,
-        color='C0',
-        alpha=0.3,
-        label='Possible outcomes from current time',
-        )
-    axs[i].axvline(x=theoretic_median, color='C1', lw=3,
-                   label='Original estimate : %.2f' % theoretic_median)
-    axs[i].axvline(x=exp_val, color='C2', lw=3,
-                   label='Expected value : %.2f' % exp_val)
-    axs[i].legend()
-    axs[i].set_title('When current factor is {0}, the expected remaining time is\n{1:0.2f} times the original estimate'.format(time_spent,
-                     exp_val - time_spent))
-
-# aesthetics
-
-axs[2].set_xlabel('Blowup factor (actual/estimated)')
-axs[1].set_ylabel('Probability distribution')
-```
-
-    Populating the interactive namespace from numpy and matplotlib
-    
-
-
-
-
-    Text(0, 0.5, 'Probability distribution')
-
-
-
-
-![png](output_1_2.png)
+![png](https://cdn-images-1.medium.com/max/1000/1*R2GEZ5OapLO0L-tZlECiMg.png)
 
 
 Now you see a paradoxical thing: the remaining time, operationalized by $\operatorname{E}_t - t$, is not shrinking as we proceed but it is growing. This, of course, does not mean that we cannot finish tasks; it just helps to make increasingly better estimates for the remaining work by factoring in the elapsed time. We can use this knowledge to multiple things. It helps the team to make the decision when to cut or restructure a task and in general to understand when it is likely to be finished (i.e. as a rule of thumb reject the notion of finishing in the next hour when the blowup factor is already 2). 
@@ -130,6 +49,3 @@ This knowledge is also critical to recognize tasks that are becoming impossible 
 Also, the assumption in this exercise is that during the task execution, there is no feedback effect of the inspection. In reality, the feedback of the team during the daily scrum or of the stakeholders during a review may change the approach (with the distribution) and hence the expected time to finish too. In fact, if you look at the distribution of blowup factors in the SiP dataset (which Erik also looked at) the right tail is not as heavy as one would expect from a standard lognormal distribution, my hypothesis is that the main reason behind this is exactly feedback, control and restructuring mechanisms when the blowup factor becomes large. So as a bottom line, pay close attention in the daily scrum and help to avoid story completion time blowup. 
 
 
-```python
-
-```

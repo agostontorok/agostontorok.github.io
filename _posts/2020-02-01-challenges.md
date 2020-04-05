@@ -1,7 +1,7 @@
 ---
 title: "Three challenges of the AI product lifecycle"
 layout: post
-date: '2019-08-01'
+date: '2020-02-01'
 tags: lean business data science product
 ---
 

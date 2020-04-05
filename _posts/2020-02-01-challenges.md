@@ -9,7 +9,7 @@ Working on AI products — Whether it is retail, IoT, or marketing — data scie
 
 # Specification of business requirements
 
-## _The challenge_
+## The challenge
 
 One of the most frequent topics that we data science practitioners like to talk about is the question of how business requirements are formulated. This can bring with it a variety of challenges depending on the perspective someone takes. On one end of the spectrum, we often like to make the claim that t_he people in charge of the business (the CEO, board, marketing team, sales team, product managers etc.) do not know what they want_. This is a frustrating place to be. On the other end of the spectrum, we often boast (without a hint of self-pity) that  _the business unit commissioned us to build something akin to a time machine or teleportation tube_. As you can imagine, this isn’t an enviable place to be in, either.
 

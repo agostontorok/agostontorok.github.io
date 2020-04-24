@@ -1,5 +1,5 @@
 ---
-title: "Why overdue tasks take still a long time to finish?"
+title: "Why do overdue tasks take still a long time to finish?"
 layout: post
 date: '2020-04-01'
 tags: lean business data science product
@@ -52,9 +52,9 @@ Code is available on [github](https://github.com/agostontorok/TaskCompletionTime
 
 Remarks:
 
--   Derek M. Jones put together [an interesting paper](https://arxiv.org/pdf/1901.01621.pdf) based on his analysis of the SiP dataset and an interview with Stephen Cullum, founder of SiP. His analysis also suggests that estimates are not only growing as estimators are becoming more accurate but also decreasing as some task types are repeated more and more.
+-   Derek M. Jones has written  [an interesting paper](https://arxiv.org/pdf/1901.01621.pdf)  based on his analysis of the SiP dataset. He is looking forward to analyzing your data as well for free with the condition that he can make an anonymized form of data publicly available. This is a great opportunity to get these parameters for your company.
+-   In the current post, I used the lognormal distribution, finding the best fitting distribution though is an active  [field of research](http://shape-of-code.coding-guidelines.com/2012/09/03/descriptive-statistics-of-some-agile-feature-characteristics/).
 -   In the SiP dataset estimates were made by single developers and not as a joint effort, also most of the estimates there are in the sub 2 days range.
 
-Thanks for the comments of Adam Csapo on the first draft
-
+Thanks for the comments of  [Adam Csapo](https://scholar.google.com/citations?user=5WMeN5UAAAAJ&hl=en),  [Jürgen Hahn](https://dblp.uni-trier.de/pers/hd/h/Hahn:J=uuml=rgen_T=)  and  [Derek M. Jones](http://www.knosof.co.uk/ESEUR/)  on the first draft.
 

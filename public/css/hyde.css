@@ -303,16 +303,16 @@ h1, h2, h3, h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-instagram:before {
+.icon-icon-instagram:before {
   content: "\ea92";
 }
-.icon-twitter:before {
+.icon-icon-twitter:before {
   content: "\ea96";
 }
-.icon-github:before {
+.icon-icon-github:before {
   content: "\eab0";
 }
-.icon-linkedin:before {
+.icon-icon-linkedin:before {
   content: "\eac9";
 } 
 

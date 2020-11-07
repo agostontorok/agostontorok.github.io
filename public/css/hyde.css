@@ -303,18 +303,18 @@ h1, h2, h3, h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-icon-github:before {
-  content: "\e900";
+.icon-instagram:before {
+  content: "\ea92";
 }
-.icon-icon-twitter:before {
-  content: "\e901";
+.icon-twitter:before {
+  content: "\ea96";
 }
-.icon-icon-linkedin:before {
-  content: "\e902";
+.icon-github:before {
+  content: "\eab0";
 }
-.icon-icon-instagram:before {
-  content: "\e90a";
-}
+.icon-linkedin:before {
+  content: "\eac9";
+} 
 
 .me {
     width: 6.5rem;

@@ -16,7 +16,9 @@
  * http://hydejack.github.io
  */
 
-/* Icon font for github, twitter, etc */
+/* Icon font for github, twitter, etc 
+ * you have to use https://icomoon.io/app/ to generate a new set of icons if you want to add
+ */
 @font-face {
     font-family: 'icomoon';
     src:    url('../fonts/icomoon.eot?bytfto');

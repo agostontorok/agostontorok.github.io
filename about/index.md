@@ -9,7 +9,7 @@ Hello, My name is Agoston Torok.
 
 I write here and on [medium](https://medium.com/@torokagoston) about leadership challenges and doing data science beyond the hype: developing statistics & machine learning solutions using software development (Lean, TDD) best practices to build easy-to-deploy features. I lead a team of curious data scientists at [AGT](https://www.youtube.com/watch?v=vataVq9gY_o) where we are looking at new ways of using AI in the field of sport and entertainment. Our tech have attracted investment from prominent players, such as [Softbank](https://techcrunch.com/2018/10/02/heed-softbank/) and [DFL](https://www.dfl.de/en/news/next-step-of-dfl-for-equity-investment-strategy-dfl-acquires-shares-in-movez-a-mobile-app-start-up-for-ball-games-and-football-skills-evaluation/). Nowadays, we are working on bringing [football](https://perfectplay.com/) and [dancing](https://www.woah.ai/) to a whole new level levaraging deep learning and AR. 
 
-By the way, I'm also the creator of [The Data Department](https://www.instagram.com/the.data.department/), a cartoon series about data science and tech development. 
+By the way, I'm also the creator of [The Data Department](https://www.instagram.com/the_data_department/), a cartoon series about data science and tech development. 
 
 That's it... 
 

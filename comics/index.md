@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Cartoons
+title: Comics
 order: 3
 ---
 

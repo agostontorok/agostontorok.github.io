@@ -22,7 +22,7 @@
 
         #title {
             color: #e8e8ee; /* Off-white color for the title */
-            font-size: calc(30px + 3.9vw);
+            font-size: calc(20px + 3.9vw);
             margin-bottom: 0;
         }
 
@@ -78,7 +78,7 @@
 
     function generate() {
         words.forEach((d, i) => {
-            d.size = i === centralWordIndex ? 100 : 15 + Math.random() * 25;
+            d.size = i === centralWordIndex ? 100 : 5 + Math.random() * 30;
         });
 
         const layout = d3.layout.cloud()

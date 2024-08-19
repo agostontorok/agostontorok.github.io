@@ -7,9 +7,9 @@ order: 4
 
 Hello, My name is Agoston Torok. 
 
-I write here and on [medium](https://medium.com/@torokagoston) about leadership challenges and doing data science beyond the hype: developing statistics & machine learning solutions using software development (Lean, TDD) best practices to build easy-to-deploy features. I lead a team of curious data scientists at [AGT](https://www.youtube.com/watch?v=vataVq9gY_o) where we are looking at new ways of using AI in the field of sport and entertainment. Our tech have attracted investment from prominent players, such as [Softbank](https://techcrunch.com/2018/10/02/heed-softbank/) and [DFL](https://www.dfl.de/en/news/next-step-of-dfl-for-equity-investment-strategy-dfl-acquires-shares-in-movez-a-mobile-app-start-up-for-ball-games-and-football-skills-evaluation/). Nowadays, we are working on bringing [football](https://perfectplay.com/) and [dancing](https://www.woah.ai/) to a whole new level levaraging deep learning and AR. 
+I write here and on [medium](https://medium.com/@torokagoston) about leadership challenges and doing AI beyond the hype: developing statistics & machine learning solutions using software development (Lean, TDD) best practices to build maintainable software and useful products. I'm CTO at [Promaton](https://www.promaton.com/), changing dental treatment planning in the here and now. 
 
-By the way, I'm also the creator of [The Data Department](https://www.instagram.com/the_data_department/), a cartoon series about data science and tech development. 
+By the way, I was the creator of [The Data Department](https://www.instagram.com/tddcomics/), a cartoon series about data science and tech development and recently started board game development too.
 
 That's it... 
 
@@ -21,4 +21,4 @@ In another project, we showed the [neural evidence for why virtual teleportation
 
 As time went by, my focus turned to how we can apply research results to create better products. I was fortunate to join [Synetiq](https://www.youtube.com/watch?v=3Nl8Y2y2jgk) and lead their R&D team. We created a fully-automated data analysis pipeline turning eye-tracking, heart rate, galvanic skin response and EEG signals into testable and objective marketing insights. This pipeline is still the basis of their record-long-running tracking study. 
 
-And finally, some fun facts: I designed my own [3D presentation toolkit](https://github.com/agostontorok/slides-of-loci), I play cricket, and I love visiting skyscrapers.
+And finally, some fun facts: long time ago I designed my own [3D presentation toolkit](https://github.com/agostontorok/slides-of-loci), I play cricket, and I love visiting skyscrapers.

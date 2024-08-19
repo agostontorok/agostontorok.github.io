@@ -8,6 +8,6 @@ Have you ever read a book that is intended for data scientists and it's not abou
 
 No, right? Well, **this is the book for you** then.
 
-No dry descriptions of theories, just **real-life stories** about how not to fail, how to ask for help, how to see the light at the end of the tunnel. This book is not for C*Os but for us, everyday data scientists building the future. 
+No dry descriptions of theories, just **real-life stories** about how to not fail, how to ask for help, how to keep going in a team.
 
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeNtZ42ZUDRI2BTvAAgz6ixxwjYUpdvJYZHm-A0WfrLL6i4Qg/viewform?embedded=true" width="400" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>

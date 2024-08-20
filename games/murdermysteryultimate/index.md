@@ -3,20 +3,36 @@ layout: subpage
 title: Murder Mystery Ultimate
 ---
 <style>
-td, th {
-   border: none!important;
-}
+    /* Style to remove borders and adjust alignment */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td {
+        border: none; /* No borders for the cells */
+        padding: 10px; /* Spacing around content */
+        vertical-align: middle; /* Aligns text and images vertically */
+    }
 </style>
 
  <h1 style="font-size:4vmax;background-color:#95221f;color:#ffffff">Murder Mystery Ultimate</h1>
 
 This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on the classic murder mystery party game, where <span style="background-color:#000000;color:#ffffff">  zero preparation </span> is needed because the players construct the story collaboratively with the help of cues. Because of this, <span style="background-color:#000000;color:#ffffff">  nobody knows </span> who the murderer is until the end, so <span style="background-color:#000000;color:#ffffff">  no deception </span> skills are needed: it only takes deduction skills, memory and a bit of luck to win the game.
 
-
-<img align="left" height="35" src="/public/img/image2.png" width="35"/> 3-6 players
-<img vertical-align="middle" height="35" src="/public/img/image3.png" width="35"/> Age 12yrs+
-<img vertical-align="middle" height="35" src="/public/img/image1.png" width="35"/> 30-45 min 
-<br>
+<table>
+    <tr>
+        <td><img src="/public/img/image2.png" height="35" width="35"></td>
+        <td>3-6 players</td>
+    </tr>
+    <tr>
+        <td><img src="/public/img/image3.png" height="35" width="35"></td>
+        <td>Age 12yrs+</td>
+    </tr>
+    <tr>
+        <td><img src="/public/img/image1.png" height="35" width="35"></td>
+        <td>30-45 min</td>
+    </tr>
+</table>
 
 If you want to try it, now you can do it for free:
 

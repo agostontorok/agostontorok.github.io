@@ -13,9 +13,12 @@ td, th {
 This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on the classic murder mystery party game, where <span style="background-color:#000000;color:#ffffff">  zero preparation </span> is needed because the players construct the story collaboratively with the help of cues. Because of this, <span style="background-color:#000000;color:#ffffff">  nobody knows </span> who the murderer is until the end, so <span style="background-color:#000000;color:#ffffff">  no deception </span> skills are needed: it only takes deduction skills, memory and a bit of luck to win the game.
 
 
-<img height="35" src="/public/img/image2.png" width="35"/> 3-6 players
-<img height="35" src="/public/img/image3.png" width="35"/> Age 12yrs+
-<img height="35" src="/public/img/image1.png" width="35"/> 30-45 min 
+<img align="left" height="35" src="/public/img/image2.png" width="35"/> 3-6 players
+<br>
+<img align="left" height="35" src="/public/img/image3.png" width="35"/> Age 12yrs+
+<br>
+<img align="left" height="35" src="/public/img/image1.png" width="35"/> 30-45 min 
+<br>
 
 If you want to play, now you can try it for free:
 

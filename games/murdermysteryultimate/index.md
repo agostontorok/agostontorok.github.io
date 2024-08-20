@@ -19,3 +19,5 @@ If you want to play, now you can try it for free:
 [Rulebook](https://docs.google.com/document/d/1pI0rQaAWCFLeeZpal_w3okZ1vFCh-jh6nwOfnQqEJMU/pub)
 
 [Print and Play files](https://docs.google.com/presentation/d/1W41-UNxPOxvtFGgiGPyleRrsCkT4fClBtq8qzNLHENc/edit?usp=sharing)
+
+[Interactive cues to help creativity](https://agostontorok.github.io/games/murdermystery/index.html)

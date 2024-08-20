@@ -6,7 +6,8 @@ title: Murder Mystery Ultimate
     /* Style to remove borders and adjust alignment */
     table {
         border-collapse: collapse;
-        width: 100%;
+        width: 50%;
+        background-color: white;
     }
     td {
         border: none; /* No borders for the cells */

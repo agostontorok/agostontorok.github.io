@@ -14,10 +14,8 @@ This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on
 
 
 <img align="left" height="35" src="/public/img/image2.png" width="35"/> 3-6 players
-<br>
-<img align="left" height="35" src="/public/img/image3.png" width="35"/> Age 12yrs+
-<br>
-<img align="left" height="35" src="/public/img/image1.png" width="35"/> 30-45 min 
+<img vertical-align="middle" height="35" src="/public/img/image3.png" width="35"/> Age 12yrs+
+<img vertical-align="middle" height="35" src="/public/img/image1.png" width="35"/> 30-45 min 
 <br>
 
 If you want to play, now you can try it for free:

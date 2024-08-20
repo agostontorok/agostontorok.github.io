@@ -18,7 +18,7 @@ This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on
 <img vertical-align="middle" height="35" src="/public/img/image1.png" width="35"/> 30-45 min 
 <br>
 
-If you want to play, now you can try it for free:
+If you want to try it, now you can do it for free:
 
 [Rulebook](https://docs.google.com/document/d/1pI0rQaAWCFLeeZpal_w3okZ1vFCh-jh6nwOfnQqEJMU/pub)
 

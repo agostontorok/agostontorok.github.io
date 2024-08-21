@@ -2,23 +2,12 @@
 layout: subpage
 title: Murder Mystery Ultimate
 ---
-<style>
-    /* Style to remove borders and adjust alignment */
-    table {
-        border-collapse: collapse;
-        width: 50%;
-        background-color: white;
-    }
-    td {
-        border: none; /* No borders for the cells */
-        padding: 10px; /* Spacing around content */
-        vertical-align: middle; /* Aligns text and images vertically */
-    }
-</style>
 
- <h1 style="font-size:4vmax;background-color:#95221f;color:#ffffff">Murder Mystery Ultimate</h1>
+ <h1 style="font-size:4vmax;background-color:#95221f;color:#ffffff;text-align:center">Murder Mystery Ultimate</h1>
 
-This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on the classic murder mystery party game, where <span style="background-color:#000000;color:#ffffff">  zero preparation </span> is needed because the players construct the story collaboratively with the help of cues. Because of this, <span style="background-color:#000000;color:#ffffff">  nobody knows </span> who the murderer is until the end, so <span style="background-color:#000000;color:#ffffff">  no deception </span> skills are needed: it only takes deduction skills, memory and a bit of luck to win the game.
+<img src="/public/img/IMG_1911.jpg" height="200">
+
+This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on the classic murder mystery party game, where <span style="background-color:#000000;color:#ffffff">  zero preparation </span> is needed because the players construct the story collaboratively with the help of cues. Because of this, <span style="background-color:#000000;color:#ffffff">  nobody knows </span> who the murderer is until the end, so <span style="background-color:#000000;color:#ffffff">  no deception </span> skills are needed: it only takes deduction, memory and a bit of luck to win the game.
 
 <table>
     <tr>

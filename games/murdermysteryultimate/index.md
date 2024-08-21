@@ -3,7 +3,7 @@ layout: subpage
 title: Murder Mystery Ultimate
 ---
 
- <h1 style="font-size:4vmax;background-color:#95221f;color:#ffffff;text-align:center">Murder Mystery Ultimate</h1>
+ <h1 style="background-color:#95221f;color:#ffffff;text-align:center">Murder Mystery Ultimate</h1>
 
 <img src="/public/img/IMG_1911.jpg" height="200">
 

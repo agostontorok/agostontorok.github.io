@@ -5,9 +5,7 @@ title: Murder Mystery Ultimate
 
  <h1 style="background-color:#95221f;color:#ffffff;text-align:center">Murder Mystery Ultimate</h1>
 
-<div style="text-align: center;">
-<img src="/public/img/IMG_1911.jpg" height="300">
-</div>
+<img style="display:block;margin: auto" src="/public/img/IMG_1911.jpg" height="300">
 
 This is a <span style="background-color:#000000;color:#ffffff"> twist </span> on the classic murder mystery party game, where <span style="background-color:#000000;color:#ffffff">  zero preparation </span> is needed because the players construct the story collaboratively with the help of cues. Because of this, <span style="background-color:#000000;color:#ffffff">  nobody knows </span> who the murderer is until the end, so <span style="background-color:#000000;color:#ffffff">  no deception </span> skills are needed: it only takes deduction, memory and a bit of luck to win the game.
 

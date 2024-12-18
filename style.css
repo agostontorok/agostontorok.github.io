@@ -306,3 +306,63 @@ table h4{
 #blog-search::placeholder {
   color: #999;
 }
+
+/* Reddit Posts Styling */
+.reddit-posts {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0;
+}
+
+.reddit-post {
+  margin-bottom: 3em;
+  padding: 1em;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+}
+
+.reddit-post:hover {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.reddit-post h3 {
+  margin: 0 0 1em 0;
+  font-size: 1.4em;
+}
+
+.reddit-post h3 a {
+  color: #515151;
+  text-decoration: none;
+}
+
+.reddit-post h3 a:hover {
+  color: #313131;
+}
+
+.reddit-image-container {
+  margin: 1em -1em;
+  text-align: center;
+  background: #f8f8f8;
+}
+
+.reddit-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.reddit-text {
+  color: #515151;
+  line-height: 1.5;
+  margin: 1em 0;
+}
+
+.reddit-meta {
+  display: block;
+  font-size: 0.85em;
+  color: #999;
+  margin-top: 1em;
+  text-align: right;
+}

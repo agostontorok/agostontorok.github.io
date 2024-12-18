@@ -2,7 +2,7 @@
 layout: post
 title: Kobe Bryant competition on Kaggle
 date: 2016-05-01
-tags: [Kaggle, Sport, Python]
+tags: ["Kaggle", "Sport", "Python"]
 ---
 
 I was playing basketball in high school, and those were the times when everybody started to be crazy about Kobe here. So I did feel that an era has ended on 13 April. Celebrating his career, Kaggle started a competition where you have to predict missing shot info in his stats.

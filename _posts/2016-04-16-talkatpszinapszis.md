@@ -2,7 +2,7 @@
 layout: post
 title: Talk at Pszinapszis2016
 date: 2016-04-16
-tags: [Talks, Neuroscience, illusions]
+tags: ["Talks", "Neuroscience", "Illusions"]
 ---
 
 I gave a talk about how illusions could save your life at [Pszinapszis](https://www.facebook.com/hashtag/pszinapszis?fref=ts). I was surprised to see the room being so crowded for such a cognitive topic, there were even people sitting on the floor. It was a great experience to talk about my research in front of such a good audience. Thanks to the organizers for inviting me.

@@ -2,7 +2,7 @@
 layout: post
 title: Senior Data Science competition on Drivendata
 date: 2016-08-04
-tags: ["Social Causes", "Kaggle", "Python"]
+tags: ["social-causes", "kaggle", "python"]
 ---
 
 Our team, YetAnotherDirtyCelticGod, finished at [28th place](https://www.drivendata.org/competitions/42/leaderboard/) in a very strong field of data enthousiasts at the Senior Data Science challenge on [drivendata.org](https://www.drivendata.org/). 

@@ -258,4 +258,27 @@ table h4{
 	margin-bottom:10px;
 }
 
+.blog-posts {
+  margin-top: 3em;
+}
 
+.post-title {
+  display: inline-block;
+}
+
+.post-subtitle {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 100;
+  font-size: 1em;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.related-posts h2 a {
+  text-decoration: none;
+}
+
+.related-posts h2 a:hover .post-subtitle {
+  opacity: 0.9;
+}

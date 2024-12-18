@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Games
+title: Board and online games
 order: 4
 ---
 

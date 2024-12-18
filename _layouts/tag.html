@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<h1>Posts tagged with "{{ page.tag }}"</h1>
+
+<div class="posts">
+  {% for post in site.posts %}
+    {% if post.tags contains page.tag %}
+      <article class="post">
+        <h2 class="post-title">
+          <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        </h2>
+        <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: '%d %B %Y' }}
+        </time>
+        {{ post.excerpt }}
+        <a href="{{ site.baseurl }}{{ post.url }}">Read more...</a>
+      </article>
+    {% endif %}
+  {% endfor %}
+</div>

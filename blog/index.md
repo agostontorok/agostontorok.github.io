@@ -3,8 +3,15 @@ layout: page
 title: Blog
 ---
 
+<script src="{{ site.baseurl }}/public/js/blog-search.js"></script>
+
+
+
 <div class="blog-posts">
   <i>Latest posts are from Medium, earlier ones are exlusively here</i>
+  <div class="search-container">
+  <input type="text" id="blog-search" placeholder="Search posts..." aria-label="Search posts">
+  </div>
   {% if site.data.medium_feed %}
   <ul class="related-posts">
     {% for post in site.data.medium_feed.items limit:7 %}

@@ -282,3 +282,27 @@ table h4{
 .related-posts h2 a:hover .post-subtitle {
   opacity: 0.9;
 }
+
+.search-container {
+  margin: 1em 0;
+  text-align: center;
+}
+
+#blog-search {
+  width: 100%;
+  max-width: 500px;
+  padding: 8px 12px;
+  font-size: 5vh;
+  border: 2px solid #eee;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+#blog-search:focus {
+  outline: none;
+  border-color: #515151;
+}
+
+#blog-search::placeholder {
+  color: #999;
+}

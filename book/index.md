@@ -1,13 +1,15 @@
 ---
 layout: page
 title: Book
-order: 2
+order: 5
 ---
 
-Have you ever read a book that is intended for data scientists and it's not about how GANs work but about all the **vital soft skills** in our highly technical field? Questions such as how to connect forming business ideas to algorithms? How to motivate people who struggle with notorious data issues day in-day out? 
+For the past 8 years, I've been leading people in AI research and development.
 
-No, right? Well, **this is the book for you** then.
+These roles helped me to collect some practical insights into how one could best tackle the complexity of doing **research on short timelines** and **yielding products** that are useful in the real world AND doing this in an environment where **people feel good** about themselves and their work.
 
-No dry descriptions of theories, just **real-life stories** about how to not fail, how to ask for help, how to keep going in a team.
+I'm working on a book that is intended for people who are in similar situations. I'm not sure if it's a good idea yet, but it's a great opportunity to share my experience with the world. The book is similar to the content I'm sharing on my [LinkedIn](https://www.linkedin.com/in/agoston-torok/recent-activity/all/) page.
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeNtZ42ZUDRI2BTvAAgz6ixxwjYUpdvJYZHm-A0WfrLL6i4Qg/viewform?embedded=true" width="400" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<div class="iframe-container">
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeNtZ42ZUDRI2BTvAAgz6ixxwjYUpdvJYZHm-A0WfrLL6i4Qg/viewform?embedded=true" style="width: 100%; min-height: 800px;">Loading…</iframe>
+</div>

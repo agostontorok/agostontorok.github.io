@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Board and online games
-order: 4
+order: 2
 ---
 
 I'm working on two games at the moment:

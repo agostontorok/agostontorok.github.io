@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About me
-order: 5
+order: 6
 ---
 
 

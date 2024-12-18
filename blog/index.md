@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Blog
+order: 1
 ---
 
 <script src="{{ site.baseurl }}/public/js/blog-search.js"></script>

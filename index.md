@@ -158,28 +158,28 @@ I believe in continuous learning and self-improvement. You can also find me shar
   <div class="tag-contents">
   {% for tag in all_tags %}
     {% assign standardized_tag = tag | strip %}
-    {% assign post_count = 0 %}
-    {% for post in site.posts %}
-      {% for post_tag in post.tags %}
-        {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
-        {% assign words = current_tag | split: ' ' %}
-        {% capture capitalized_current_tag %}
-          {% for word in words %}
-            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
-          {% endfor %}
-        {% endcapture %}
-        {% assign capitalized_current_tag = capitalized_current_tag | strip %}
-        {% if capitalized_current_tag == standardized_tag %}
-          {% assign post_count = post_count | plus: 1 %}
-        {% endif %}
+    <div id="{{ standardized_tag | slugify }}" class="tag-content">
+      <ul>
+      <li style="display:none">Debug - Raw tag: '{{ standardized_tag }}'</li>
+      {% assign tag_normalized = standardized_tag | strip | strip_newlines | downcase | replace: " ", "" | replace: "-", "" %}
+      <li style="display:none">Debug - After normalization: '{{ tag_normalized }}'</li>
+      {% for post in site.data.medium_feed.items %}
+        {% for category in post.categories %}
+          {% assign normalized_category = category | strip | strip_newlines | downcase | replace: " ", "" | replace: "-", "" %}
+          <li style="display:none">Debug - Comparing: '{{ normalized_category }}' with '{{ tag_normalized }}'</li>
+          {% if normalized_category == tag_normalized %}
+            <li>
+              <a href="{{ post.link }}" target="_blank">{{ post.title }}</a>
+              <small>({{ post.pubDate | date: '%d %B %Y' }}) (Medium)</small>
+            </li>
+            {% break %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-    
-    {% assign page_count = 0 %}
-    {% for page in site.pages %}
-      {% if page.tags %}
-        {% for page_tag in page.tags %}
-          {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
+      
+      {% for post in site.posts %}
+        {% for post_tag in post.tags %}
+          {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
           {% assign words = current_tag | split: ' ' %}
           {% capture capitalized_current_tag %}
             {% for word in words %}
@@ -188,36 +188,18 @@ I believe in continuous learning and self-improvement. You can also find me shar
           {% endcapture %}
           {% assign capitalized_current_tag = capitalized_current_tag | strip %}
           {% if capitalized_current_tag == standardized_tag %}
-            {% assign page_count = page_count | plus: 1 %}
+            <li>
+              <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+              <small>({{ post.date | date: '%d %B %Y' }})</small>
+            </li>
           {% endif %}
         {% endfor %}
-      {% endif %}
-    {% endfor %}
-    
-    {% assign medium_count = 0 %}
-    {% for medium_post in site.data.medium_feed.items %}
-      {% for medium_tag in medium_post.categories %}
-        {% assign current_tag = medium_tag | strip | downcase | replace: "-", " " %}
-        {% assign words = current_tag | split: ' ' %}
-        {% capture capitalized_current_tag %}
-          {% for word in words %}
-            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
-          {% endfor %}
-        {% endcapture %}
-        {% assign capitalized_current_tag = capitalized_current_tag | strip %}
-        {% if capitalized_current_tag == standardized_tag %}
-          {% assign medium_count = medium_count | plus: 1 %}
-        {% endif %}
       {% endfor %}
-    {% endfor %}
-    
-    {% assign total_count = post_count | plus: page_count | plus: medium_count %}
-    {% if total_count > 0 %}
-      <div id="{{ standardized_tag | slugify }}" class="tag-content">
-        <ul>
-        {% for post in site.posts %}
-          {% for post_tag in post.tags %}
-            {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
+      
+      {% for page in site.pages %}
+        {% if page.tags %}
+          {% for page_tag in page.tags %}
+            {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
             {% assign words = current_tag | split: ' ' %}
             {% capture capitalized_current_tag %}
               {% for word in words %}
@@ -227,50 +209,15 @@ I believe in continuous learning and self-improvement. You can also find me shar
             {% assign capitalized_current_tag = capitalized_current_tag | strip %}
             {% if capitalized_current_tag == standardized_tag %}
               <li>
-                <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-                <small>({{ post.date | date: '%d %B %Y' }})</small>
+                <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+                <small>(Page)</small>
               </li>
             {% endif %}
           {% endfor %}
-        {% endfor %}
-        
-        {% for page in site.pages %}
-          {% if page.tags %}
-            {% for page_tag in page.tags %}
-              {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
-              {% assign words = current_tag | split: ' ' %}
-              {% capture capitalized_current_tag %}
-                {% for word in words %}
-                  {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
-                {% endfor %}
-              {% endcapture %}
-              {% assign capitalized_current_tag = capitalized_current_tag | strip %}
-              {% if capitalized_current_tag == standardized_tag %}
-                <li>
-                  <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-                  <small>(Page)</small>
-                </li>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
-        
-        {% assign medium_posts = site.data.medium_feed.items | where_exp: "post", "post.categories contains standardized_tag" %}
-        <p style="display:none">Debug - Looking for tag: {{ standardized_tag }}</p>
-        <p style="display:none">Debug - Medium feed exists: {{ site.data.medium_feed != null }}</p>
-        <p style="display:none">Debug - Medium feed items: {{ site.data.medium_feed.items | size }}</p>
-        {% for post in site.data.medium_feed.items %}
-          <p style="display:none">Debug - Post: {{ post.title }} - Categories: {{ post.categories | join: ', ' }}</p>
-        {% endfor %}
-        {% for post in medium_posts %}
-          <li>
-            <a href="{{ post.link }}" target="_blank">{{ post.title }} 📝</a>
-            <small>({{ post.pubDate | date: '%d %B %Y' }}) - Medium</small>
-          </li>
-        {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
   {% endfor %}
   </div>
 </div>

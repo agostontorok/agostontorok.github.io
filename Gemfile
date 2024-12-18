@@ -13,3 +13,7 @@ group :jekyll_plugins do
   gem 'jekyll-paginate'
   gem 'jekyll-gist'
 end
+
+group :test do
+  gem 'html-proofer'
+end

@@ -5,6 +5,7 @@ gem 'github-pages', group: :jekyll_plugins
 gem 'webrick'
 gem 'rexml'
 gem 'kramdown-parser-gfm'
+gem 'faraday-retry'
 
 group :jekyll_plugins do
   gem 'jekyll-feed'

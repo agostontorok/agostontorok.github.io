@@ -2,7 +2,7 @@
 layout: post
 title: Our human grid cell study is in PNAS
 date: 2017-04-14
-tags: science statistics psychology virtual neuroscience
+tags: [science, neuroscience, "virtual reality"]
 ---
 
 About five years ago, we have come up with a idea about grid cells that challenged mainstream scientific thinking. While grid cells in rodent form a context independent coordinate system for spatial navigation, we thought that their activity actually does depend on the context in humans. To verify this we designed an experiment where epliepsy patients with implanted electrodes had to navigate in virtual environments of different sizes.

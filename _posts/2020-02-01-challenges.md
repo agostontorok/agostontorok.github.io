@@ -2,7 +2,7 @@
 title: "Three challenges of the AI product lifecycle"
 layout: post
 date: '2020-02-01'
-tags: lean business data science product
+tags: [leadership, business, "product management"]
 ---
 
 Working on AI products — Whether it is retail, IoT, or marketing — data scientists face similar challenges. Some of these challenges are general to many technology areas, others are specific to AI, due to its unique way this field blurs the boundaries between state-of-the-art research and application development. Let’s look at three prototypical examples of these challenges in the areas of business specification, iterative development of analytics, and testing.

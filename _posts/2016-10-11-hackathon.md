@@ -2,7 +2,7 @@
 layout: post
 title: Hackathon
 date: 2016-10-11
-tags: data science BCI EEG neural nets
+tags: [Neuroscience, Hackathon]
 ---
 
 So we have won the Qusp Prize at the largest Brain Hackathon :)

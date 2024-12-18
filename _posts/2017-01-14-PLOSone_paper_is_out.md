@@ -2,7 +2,7 @@
 layout: post
 title: Our paper in PLoSONE
 date: 2017-01-14
-tags: statistics phd
+tags: [science, illusions]
 ---
 
 Good start for 2017: our paper is in PLoSONE!

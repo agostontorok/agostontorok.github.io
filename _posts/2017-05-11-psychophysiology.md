@@ -2,7 +2,7 @@
 title: "Virtual teleportation changes how we think of space"
 layout: post
 date: '2017-05-11'
-tags: neuroscience data science
+tags: [neuroscience, illusions, R]
 ---
 
 The prestigious journal Psychophysiology has just [published our new paper](http://onlinelibrary.wiley.com/doi/10.1111/psyp.12886/abstract) on the neural background of navigation. For the impatient (like myself) I'm summarising the interesting parts of the results and methods here.

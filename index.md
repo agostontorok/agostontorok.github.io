@@ -20,19 +20,135 @@ I believe in continuous learning and self-improvement. You can also find me shar
 
 <div class="tag-container">
   <div class="tag-sections">
-  {% assign post_tags = site.posts | map: "tags" | join: ',' | split: ',' | uniq %}
-  {% assign page_tags = site.pages | map: "tags" | join: ',' | split: ',' | uniq %}
-  {% assign medium_tags = site.data.medium_feed.items | map: "categories" | join: "," | split: "," | uniq %}
-  {% assign all_tags = post_tags | concat: page_tags | concat: medium_tags | uniq | compact | sort %}
+  {% for post in site.posts %}
+    {% if post.tags %}
+      <p style="display:none">Debug - Post: {{ post.title }} - Tags: {{ post.tags | join: ', ' }}</p>
+    {% endif %}
+  {% endfor %}
+  
+  {% assign post_tags = '' | split: '' %}
+  {% for post in site.posts %}
+    {% if post.tags %}
+      {% for tag in post.tags %}
+        {% assign standardized_tag = tag | strip | downcase | replace: "-", " " | replace: '"', '' %}
+        {% assign words = standardized_tag | split: ' ' %}
+        {% capture capitalized_tag %}
+          {% for word in words %}
+            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+        {% assign capitalized_tag = capitalized_tag | strip %}
+        {% assign post_tags = post_tags | push: capitalized_tag %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  
+  {% assign page_tags = '' | split: '' %}
+  {% for page in site.pages %}
+    {% if page.tags %}
+      {% for tag in page.tags %}
+        {% assign standardized_tag = tag | strip | downcase | replace: "-", " " | replace: '"', '' %}
+        {% assign words = standardized_tag | split: ' ' %}
+        {% capture capitalized_tag %}
+          {% for word in words %}
+            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+        {% assign capitalized_tag = capitalized_tag | strip %}
+        {% assign page_tags = page_tags | push: capitalized_tag %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  
+  {% assign medium_tags = site.data.medium_feed.items | map: "categories" | join: "," | split: "," %}
+  {% assign standardized_medium_tags = '' | split: '' %}
+  {% for tag in medium_tags %}
+    {% if tag != '' %}
+      {% assign standardized_tag = tag | strip | downcase | replace: "-", " " | replace: '"', '' %}
+      {% assign words = standardized_tag | split: ' ' %}
+      {% capture capitalized_tag %}
+        {% for word in words %}
+          {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+        {% endfor %}
+      {% endcapture %}
+      {% assign capitalized_tag = capitalized_tag | strip %}
+      {% assign standardized_medium_tags = standardized_medium_tags | push: capitalized_tag %}
+    {% endif %}
+  {% endfor %}
+  
+  {% assign temp_tags = post_tags | concat: page_tags | concat: standardized_medium_tags %}
+  {% assign sorted_tags = temp_tags | sort_natural %}
+  {% assign all_tags = '' | split: '' %}
+  {% assign previous_tag = '' %}
+  
+  {% for tag in sorted_tags %}
+    {% assign clean_tag = tag | strip %}
+    {% if clean_tag != '' and clean_tag != previous_tag %}
+      {% assign all_tags = all_tags | push: clean_tag %}
+      {% assign previous_tag = clean_tag %}
+    {% endif %}
+  {% endfor %}
+  
   {% for tag in all_tags %}
-    {% if tag != '' and tag != nil %}
-      {% assign post_count = site.posts | where_exp: "post", "post.tags contains tag" | size %}
-      {% assign page_count = site.pages | where_exp: "page", "page.tags contains tag" | size %}
-      {% assign medium_count = site.data.medium_feed.items | where_exp: "post", "post.categories contains tag" | size %}
-      {% assign total_count = post_count | plus: page_count | plus: medium_count %}
+    {% assign post_count = 0 %}
+    {% assign standardized_tag = tag | strip %}
+    {% for post in site.posts %}
+      {% for post_tag in post.tags %}
+        {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
+        {% assign words = current_tag | split: ' ' %}
+        {% capture capitalized_current_tag %}
+          {% for word in words %}
+            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+        {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+        {% if capitalized_current_tag == standardized_tag %}
+          {% assign post_count = post_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    {% assign page_count = 0 %}
+    {% for page in site.pages %}
+      {% if page.tags %}
+        {% for page_tag in page.tags %}
+          {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
+          {% assign words = current_tag | split: ' ' %}
+          {% capture capitalized_current_tag %}
+            {% for word in words %}
+              {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+            {% endfor %}
+          {% endcapture %}
+          {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+          {% if capitalized_current_tag == standardized_tag %}
+            {% assign page_count = page_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    
+    {% assign medium_count = 0 %}
+    {% for medium_post in site.data.medium_feed.items %}
+      {% for medium_tag in medium_post.categories %}
+        {% assign current_tag = medium_tag | strip | downcase | replace: "-", " " %}
+        {% assign words = current_tag | split: ' ' %}
+        {% capture capitalized_current_tag %}
+          {% for word in words %}
+            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+        {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+        {% if capitalized_current_tag == standardized_tag %}
+          {% assign medium_count = medium_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    {% assign total_count = post_count | plus: page_count | plus: medium_count %}
+    {% if total_count > 0 %}
       <div class="tag-section">
-        <button class="tag-button" onclick="toggleTag('{{ tag | slugify }}', this)">
-          {{ tag }} [{{ total_count }}]
+        <button class="tag-button" onclick="toggleTag('{{ standardized_tag | slugify }}', this)">
+          {{ standardized_tag }} [{{ total_count }}]
         </button>
       </div>
     {% endif %}
@@ -41,23 +157,102 @@ I believe in continuous learning and self-improvement. You can also find me shar
 
   <div class="tag-contents">
   {% for tag in all_tags %}
-    {% if tag != '' and tag != nil %}
-      <div id="{{ tag | slugify }}" class="tag-content">
+    {% assign standardized_tag = tag | strip %}
+    {% assign post_count = 0 %}
+    {% for post in site.posts %}
+      {% for post_tag in post.tags %}
+        {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
+        {% assign words = current_tag | split: ' ' %}
+        {% capture capitalized_current_tag %}
+          {% for word in words %}
+            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+        {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+        {% if capitalized_current_tag == standardized_tag %}
+          {% assign post_count = post_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    {% assign page_count = 0 %}
+    {% for page in site.pages %}
+      {% if page.tags %}
+        {% for page_tag in page.tags %}
+          {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
+          {% assign words = current_tag | split: ' ' %}
+          {% capture capitalized_current_tag %}
+            {% for word in words %}
+              {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+            {% endfor %}
+          {% endcapture %}
+          {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+          {% if capitalized_current_tag == standardized_tag %}
+            {% assign page_count = page_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    
+    {% assign medium_count = 0 %}
+    {% for medium_post in site.data.medium_feed.items %}
+      {% for medium_tag in medium_post.categories %}
+        {% assign current_tag = medium_tag | strip | downcase | replace: "-", " " %}
+        {% assign words = current_tag | split: ' ' %}
+        {% capture capitalized_current_tag %}
+          {% for word in words %}
+            {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+        {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+        {% if capitalized_current_tag == standardized_tag %}
+          {% assign medium_count = medium_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    {% assign total_count = post_count | plus: page_count | plus: medium_count %}
+    {% if total_count > 0 %}
+      <div id="{{ standardized_tag | slugify }}" class="tag-content">
         <ul>
-        {% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
-        {% for post in tagged_posts %}
-          <li>
-            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-            <small>({{ post.date | date: '%d %B %Y' }})</small>
-          </li>
+        {% for post in site.posts %}
+          {% for post_tag in post.tags %}
+            {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
+            {% assign words = current_tag | split: ' ' %}
+            {% capture capitalized_current_tag %}
+              {% for word in words %}
+                {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+              {% endfor %}
+            {% endcapture %}
+            {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+            {% if capitalized_current_tag == standardized_tag %}
+              <li>
+                <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                <small>({{ post.date | date: '%d %B %Y' }})</small>
+              </li>
+            {% endif %}
+          {% endfor %}
         {% endfor %}
         
-        {% assign tagged_pages = site.pages | where_exp: "page", "page.tags contains tag" %}
-        {% for page in tagged_pages %}
-          <li>
-            <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-            <small>(Page)</small>
-          </li>
+        {% for page in site.pages %}
+          {% if page.tags %}
+            {% for page_tag in page.tags %}
+              {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
+              {% assign words = current_tag | split: ' ' %}
+              {% capture capitalized_current_tag %}
+                {% for word in words %}
+                  {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+                {% endfor %}
+              {% endcapture %}
+              {% assign capitalized_current_tag = capitalized_current_tag | strip %}
+              {% if capitalized_current_tag == standardized_tag %}
+                <li>
+                  <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+                  <small>(Page)</small>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         {% endfor %}
         
         {% assign medium_posts = site.data.medium_feed.items | where_exp: "post", "post.categories contains tag" %}

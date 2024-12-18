@@ -1,8 +1,8 @@
 ---
 layout: post
-title: SatRday talk online
+title: SatRday Talk Online
 date: 2016-09-20
-tags: science data statistics
+tags: [Talks, R]
 ---
 
 My talk on using hidden Markov modelling to uncover emotions is available online.

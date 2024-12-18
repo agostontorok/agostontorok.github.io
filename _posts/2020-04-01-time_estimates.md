@@ -2,7 +2,7 @@
 title: "Why do overdue tasks take still a long time to finish?"
 layout: post
 date: '2020-04-01'
-tags: lean business data science product
+tags: [productivity, leadership]
 ---
 
 The prototypical situation that has been puzzling me for a while is the following:  

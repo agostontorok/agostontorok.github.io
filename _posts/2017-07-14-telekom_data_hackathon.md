@@ -3,7 +3,7 @@ title: "Using deep learning to create personalized ads"
 layout: post
 date: '2017-07-14'
 output: pdf_document
-tags: data science statistics deep learning neuroscience
+tags: [neuroscience, hackathon, "deep learning"]
 ---
 
 I've finally managed to find some time to write a short post about our winning solution at the [Telekom Leading Data Hackathon](http://bigdata.kibu.hu/). The aim of this post is to give an example of how to use deep learning in a practical business use case. 

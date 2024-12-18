@@ -2,7 +2,7 @@
 layout: page
 title: Book
 order: 5
-tags: [teaching, research]
+tags: [Leadership, "Data Science", Research, Teaching]
 ---
 
 For the past 8 years, I've been leading people in AI research and development.

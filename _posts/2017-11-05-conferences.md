@@ -2,7 +2,7 @@
 title: "There are some really interesting things in November"
 layout: post
 date: '2017-11-05'
-tags: neuroscience data science
+tags: [neuroscience, talks]
 ---
 
 I've had a very interesting start for the autumn: not only gave a nice keynote at IEEE CogInfoCom about the Neuroscience of Virtual Reality, but also the track that we organized with my father Zsolt Török received the Best Session Award. It is really good to  feel that our work invested pays off. And there are some interesting things coming in November. 

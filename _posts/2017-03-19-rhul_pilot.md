@@ -2,7 +2,7 @@
 layout: post
 title: Pilot experiment for Twisted Gravity
 date: 2017-03-19
-tags: science statistics psychology virtual
+tags: [science, illusions, "virtual reality"]
 ---
 
 I've just returned from pilot testing in the VeME lab directed by [Elisa Ferré](https://vemerhul.wordpress.com/people-2/) at Royal Holloway, University of London thanks to my [EPS grant](http://www.eps.ac.uk/index.php/grants-and-awards). We are studying how vestibular and visual informations interact in the perception of gravity. We focus the current experiment on the dynamic nature of gravity, namely the perception of moving objects.

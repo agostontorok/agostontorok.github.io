@@ -2,7 +2,7 @@
 layout: post
 title: Augmented reality poster 2.0
 date: 2016-08-25
-tags: science neuroscience augmented reality virtual reality
+tags: [Talks, Neuroscience, "Virtual Reality", illusions]
 ---
 
 I'm traveling to Barcelona to visit the [ECVP2016](http://www.ub.edu/ecvp/programme), where I continue my mission on AR evangelism. I learnt a couple things from the [ICOM6](http://www.icom2016.com/) that made this poster a better shot.

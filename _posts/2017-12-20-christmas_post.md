@@ -2,7 +2,7 @@
 title: "The invisible countries of the Big Data world"
 layout: post
 date: '2017-12-20'
-tags: christmas data science world poverty
+tags: ["social causes", storytelling, "infographics"]
 ---
 
 For almost ten years, every year on Christmas Eve, my mum took us in the car and drove to an old house in our village. We brought carefully wrapped toys and food to a family in need. She told us that the parents are very nice people and have children who are our age. Since this was a small village, I once asked my mum, _“Do I know the children?”_ My mum looked at me and said, _“I don’t think so, you know people in need only if you look for them.”_

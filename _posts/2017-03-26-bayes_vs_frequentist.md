@@ -2,7 +2,7 @@
 title: "Bayesianism vs Frequentism"
 layout: post
 date: '2017-03-26'
-tags: statistics data science
+tags: [statistics, comics, "Bayesian"]
 ---
 
 In recent times the popularity of Bayesian statistics has greatly increased, thanks to the large computing power of modern computers. As a result, there is an ongoing debate on whether the Bayesian or frequentist approach is more suitable for statistical and scientific purposes. A great number of introductory papers on these two schools of statistical inference are available online, therefore I will not spend time reiterating the basic definitions here (for those who are interested I recommend [these](https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading20.pdf) [two](http://web.archive.org/web/20160110224503/http://www2.isye.gatech.edu/~brani/isyebayes/bank/lindleybayeslady.pdf) documents, which contain excellent introductions to the topic). Instead, my goal is to take a look at which of these two approaches is worth following in order to reach the right statistical conclusions – whatever the definition of ‘right’ may be.

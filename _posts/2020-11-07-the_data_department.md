@@ -2,7 +2,7 @@
 title: "I published the first cartoons of The Data Department series"
 layout: post
 date: '2020-11-07'
-tags: data science cartoon
+tags: [comics]
 ---
 
 I was working on the illustrations for my book when things got out of control :) I found myself drawing into the nights and I just could not stop. It's kind of relaxing, kind of fun and I'm sure there are people like me who enjoys stats jokes. So here it is.

@@ -2,7 +2,7 @@
 title: "Minimal example for the development of a data science product"
 layout: post
 date: '2018-01-11'
-tags: christmas data science world poverty
+tags: ["social causes", storytelling, "infographics", "product management"]
 ---
 
 Developing a data science product is the focus of many startups and enterprises in our time. Thousands of entrepreneurs are working on finding a way to create a better world or to make huge money. They all want to do this by using current developments in machine learning, data storage, cloud computing, and deep learning. Although many products are built on technology, data-driven products are unique since here the research results of last week may end up in a product already next month. And that is fast. The field is, therefore, filled with noise and buzz...

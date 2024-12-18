@@ -2,7 +2,7 @@
 title: "Business vision in effective data science teams"
 layout: post
 date: '2019-01-01'
-tags: leadership business data science
+tags: [leadership, business, comics]
 ---
 
 This is the first part of a mini-series that summarizes my impressions on what makes certain data science teams effective. Over the years, I have worked in several teams: teams of various sizes, from as small as a duo to as large as a dozen data experts; and of various players, from college dropout savants through rebranded software engineers to PhD/postdocs with long years of academic experience. My role was also changing, I started as a junior and with time and experience developed to be a team lead.

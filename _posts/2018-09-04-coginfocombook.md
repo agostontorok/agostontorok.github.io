@@ -2,7 +2,7 @@
 title: "Our chapter is out in a Springer book"
 layout: post
 date: '2018-09-04'
-tags: science research navigation
+tags: ["science", "virtual reality", infographics, storytelling]
 ---
 
 So this is a big day: our chapter on Cognitive Data Visualization has been published in the series Topics in Intelligent Engineering and Informatics. Aaand... this is the first time that my work can be found in [books.google.com](https://books.google.co.uk/books?hl=en&lr=&id=a8hqDwAAQBAJ&oi=fnd&pg=PA49&ots=Fg_RZz0mHt&sig=Xs9DOaf4afTlkaYvc5LVzJ5ISaM#v=onepage&q&f=false) :) 

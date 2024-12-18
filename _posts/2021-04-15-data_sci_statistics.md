@@ -2,7 +2,7 @@
 title: "Can you do data science without statistics knowledge?"
 layout: post
 date: '2021-04-15'
-tags: data science statistics
+tags: [science]
 ---
 
 Can you do data science without statistics knowledge?

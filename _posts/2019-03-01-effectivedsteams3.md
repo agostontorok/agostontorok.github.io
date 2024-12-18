@@ -2,7 +2,7 @@
 title: "Test-driven development and data science"
 layout: post
 date: '2019-03-01'
-tags: leadership business data science software engineering
+tags: [leadership, business, comics]
 ---
 
 The previous two posts of this series were about the business and people perspectives of effective data science teams. However, in themselves they are only necessary but sufficient conditions: without the right tools and processes, the recipe does not work.

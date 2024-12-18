@@ -2,7 +2,7 @@
 title: "From talents to assets"
 layout: post
 date: '2019-02-01'
-tags: leadership business data science
+tags: [leadership, business, comics]
 ---
 
 After the first part of this mini-series, I received some very interesting insights from fellow data professionals. Interestingly, one of the recurring topics was talent management. This topic is also very close to me. I know from first-hand experience that without good mentors and talent management I would never have been able to get to this point and still enjoy so much my everyday work. In this article, I would like to discuss the two specific aspects of talent management. The first is nurturing talent during internships and the second is whether a computer science dropout or a fresh PhD is better material for a data scientist.

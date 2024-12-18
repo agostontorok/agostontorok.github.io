@@ -255,7 +255,13 @@ I believe in continuous learning and self-improvement. You can also find me shar
           {% endif %}
         {% endfor %}
         
-        {% assign medium_posts = site.data.medium_feed.items | where_exp: "post", "post.categories contains tag" %}
+        {% assign medium_posts = site.data.medium_feed.items | where_exp: "post", "post.categories contains standardized_tag" %}
+        <p style="display:none">Debug - Looking for tag: {{ standardized_tag }}</p>
+        <p style="display:none">Debug - Medium feed exists: {{ site.data.medium_feed != null }}</p>
+        <p style="display:none">Debug - Medium feed items: {{ site.data.medium_feed.items | size }}</p>
+        {% for post in site.data.medium_feed.items %}
+          <p style="display:none">Debug - Post: {{ post.title }} - Categories: {{ post.categories | join: ', ' }}</p>
+        {% endfor %}
         {% for post in medium_posts %}
           <li>
             <a href="{{ post.link }}" target="_blank">{{ post.title }} 📝</a>

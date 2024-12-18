@@ -20,30 +20,56 @@ I believe in continuous learning and self-improvement. You can also find me shar
 
 <div class="tag-container">
   <div class="tag-sections">
-  {% assign tags = site.posts | map: "tags" | uniq | sort %}
-  {% for tag in tags %}
-    {% assign tag_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
-    <div class="tag-section">
-      <button class="tag-button" onclick="toggleTag('{{ tag | slugify }}', this)">
-        {{ tag }} [{{ tag_posts.size }}]
-      </button>
-    </div>
+  {% assign post_tags = site.posts | map: "tags" | join: ',' | split: ',' | uniq %}
+  {% assign page_tags = site.pages | map: "tags" | join: ',' | split: ',' | uniq %}
+  {% assign medium_tags = site.data.medium_feed.items | map: "categories" | join: "," | split: "," | uniq %}
+  {% assign all_tags = post_tags | concat: page_tags | concat: medium_tags | uniq | compact | sort %}
+  {% for tag in all_tags %}
+    {% if tag != '' and tag != nil %}
+      {% assign post_count = site.posts | where_exp: "post", "post.tags contains tag" | size %}
+      {% assign page_count = site.pages | where_exp: "page", "page.tags contains tag" | size %}
+      {% assign medium_count = site.data.medium_feed.items | where_exp: "post", "post.categories contains tag" | size %}
+      {% assign total_count = post_count | plus: page_count | plus: medium_count %}
+      <div class="tag-section">
+        <button class="tag-button" onclick="toggleTag('{{ tag | slugify }}', this)">
+          {{ tag }} [{{ total_count }}]
+        </button>
+      </div>
+    {% endif %}
   {% endfor %}
   </div>
 
   <div class="tag-contents">
-  {% for tag in tags %}
-    {% assign tag_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
-    <div id="{{ tag | slugify }}" class="tag-content">
-      <ul>
-      {% for post in tag_posts %}
-        <li>
-          <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-          <small>({{ post.date | date: '%d %B %Y' }})</small>
-        </li>
-      {% endfor %}
-      </ul>
-    </div>
+  {% for tag in all_tags %}
+    {% if tag != '' and tag != nil %}
+      <div id="{{ tag | slugify }}" class="tag-content">
+        <ul>
+        {% assign tagged_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
+        {% for post in tagged_posts %}
+          <li>
+            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+            <small>({{ post.date | date: '%d %B %Y' }})</small>
+          </li>
+        {% endfor %}
+        
+        {% assign tagged_pages = site.pages | where_exp: "page", "page.tags contains tag" %}
+        {% for page in tagged_pages %}
+          <li>
+            <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+            <small>(Page)</small>
+          </li>
+        {% endfor %}
+        
+        {% assign medium_posts = site.data.medium_feed.items | where_exp: "post", "post.categories contains tag" %}
+        {% for post in medium_posts %}
+          <li>
+            <a href="{{ post.link }}" target="_blank">{{ post.title }} 📝</a>
+            <small>({{ post.pubDate | date: '%d %B %Y' }}) - Medium</small>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
   {% endfor %}
   </div>
 </div>

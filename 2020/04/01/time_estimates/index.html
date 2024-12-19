@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; img-src 'self' https: data:; font-src 'self' https: data:;">
+
+  <title>
+    
+       Why do overdue tasks take still a long time to finish?  &middot; ágoston.török
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|PT+Serif:400,400italic,700,700italic" type="text/css">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/jekyll-github.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <link rel="stylesheet" href="/public/css/showcase.css">
+
+  
+
+  
+
+  
+
+  <style>
+    .content a,
+    .related-posts li a:hover {
+      color: #A85641;
+    }
+    ::selection {
+      color: #fff;
+      background: #A85641;
+    }
+    ::-moz-selection {
+      color: #fff;
+      background: #A85641;
+    }
+  </style>
+
+  <!-- Icons -->
+  <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png"> -->
+  <!-- <link rel="shortcut icon" href="/public/favicon.ico"> -->
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="ágoston.török" href="/atom.xml">
+  
+  <!-- Mathjax -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true,
+        tags: 'ams'
+      }
+    };
+  </script>
+	
+</head>
+
+
+  <body>
+
+    <main class="content container">
+      
+
+
+<article class="post">
+  <h1 class="post-title">Why do overdue tasks take still a long time to finish?</h1>
+  <div class="post-date">
+    01 April 2020
+    <span> </span>
+  </div>
+  <hr/>
+  <p>The prototypical situation that has been puzzling me for a while is the following:<br />
+_- We estimated 3 days for a task</p>
+<ul>
+  <li>Bob has been working on the task for 3 days already</li>
+  <li>On the daily scrum, he says that he just needs to take care of a couple more things and the task will be finished</li>
+  <li>The task is not finished the next day_</li>
+</ul>
+
+<p>Sometimes such tasks are not finished even after 5 days of work. Since they are typically “more research-less development” tasks, many people suggest accepting this kind of uncertainty as inherent to research. While I agree to a point, I don’t want to give up predictability so easily. A year ago, Erik Bernhardsson shared a <a href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">fascinating blog post on time estimations</a>, concluding that the reason why development tasks take longer than expected is that the blowup factor (actual time/expected time) follows a lognormal distribution and our estimates are accurate for the Median but not so much for the Mean task completion time. I really liked his post and re-read it several times last year because it finally helped me to understand why is it so difficult to play scrum poker. I’m taking his model as the basis for my work here, to see if we need to finetune our estimate for task completion.</p>
+
+<h4 id="estimates-are-smaller-than-expected-finishing-times">Estimates are smaller than expected finishing times</h4>
+
+<p>When in the above example, Bob was 3 days into the task, it was intuitive to believe that he was really about to finish it. After all, the estimated time need for the task was 3 days. However, statistically speaking, our estimate of 3 days was an estimate for the Median of the underlying distribution. The Median of the distribution does not say too much about the scale of the values, it just says plain and simple that 50% of the time the task would be completed faster, and 50% of the time it would take longer than 3 days. A problem with the Median is that it is <strong>not</strong> sensitive to the uncertainty in the task. However, when you want to calculate the development time of a feature, you do want to take into account the uncertainty. Therefore, it is better to calculate the expected value for the task completion time for which we have pretty much all the information we need. Let’s see what this expected value would look like.</p>
+
+<p>The expected value for the lognormal distribution is:</p>
+
+\[\operatorname{E} = \exp(\mu + \frac{\sigma^2}{2})\]
+
+<p>To calculate this, we need to know two parameters μ and σ. Luckily, we have an unbiased estimate for the Median, and since that is:</p>
+
+\[Median = \exp(\mu)\]
+
+<p>We have μ already. For σ, the case is a bit more tricky but not hopeless. Erik’s idea was to use the gut feeling of risk. My proposal, in addition, is to use the spread of the scrum poker estimates as an uncalibrated estimate for σ. To be sure, this is an uncalibrated estimate because — although it should be correlated with some sort of uncertainty — it still doesn’t reflect any particular scaling factor. Probably, this is also team and environment-dependent, so it’s best to estimate it based on the actual data collected from the sprints. Basically, you need the individual estimates and the actual time to be able to fit a simple model and get σ for your team. One addition: likely, the uncertainty around a task can be better estimated with a model that also factors in who the assignee is (no offence meant to anyone ;). Some people are better at streamlining, while others are much more conscious of details.</p>
+
+<h4 id="the-bermuda-triangle-of-the-doing-column">The Bermuda triangle of the “Doing” column</h4>
+
+<p>So let’s get back to the daily scrum where Bob said that he was about to finish the task that we estimated to take 3 days of work (just as a remark, Bob is a fictive person). The question is whether we should just accept that the mean completion time is bigger than our estimate (Median) anyway, or if there is more to this story than meets the eye.</p>
+
+<p>Let’s say when we did the scrum poker we voted as follows: Me: 2; John: 2, Bob: 3, Sarah: 3, Linda: 5, Mary: 5. Based on this we had an estimate of 3 days. Now the three days passed, so the question is whether we should still stick to the same estimate? Actually, it turned out that both John and I were wrong in gauging the difficulty of the task, so one can already see intuitively that the Median of the remaining votes (discounting our lousy votes) can be considered to be higher (it is now 4 days!). More generally speaking, when we made our estimate before the task was started we took into account all kinds of outcomes, amongst them the case when the task could have been completed in a few minutes (perhaps if Bob had realized that the same feature already existed someplace but with a different name), to the absurd case of a very difficult implementation process (perhaps if the feature had been more complicated than we imagined). Statistically, we calculate the expected value by integrating over the entire distribution. Now for any time point <em>t</em> &gt; 0 it is evident that we can’t consider times between 0 and <em>t</em> in the integration and have to instead calculate the expected value as follows:</p>
+
+\[\operatorname{E}[X] = \int_{t}^{\infty} x f(x)\, dx.\]
+
+<p>Where <em>f(x)</em> is the conditional probability of <em>x</em> given that we consider points from <em>t</em> to <em>∞</em>. So we are not considering the cases which we already know did not materialize and are considering only cases when the task will take at least a time of <em>t</em> to be completed.</p>
+
+<p>So although beyond the peak of the distribution, points right after <em>t</em> have a relatively higher probability than points farther away, there are much more points farther away and the curvature is also changing as it moves away from the peak, so the expected value is actually blowing up. Let’s demonstrate this through an example. Let’s take three cases to illustrate, (1) where the task is in “todo” phase and we have not started it yet, (2) where the task has already been worked on for the initially estimated time (blowup factor of 1), and (3) where the task has been worked on for double the initially estimated time (blowup factor of 2).</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/1000/1*R2GEZ5OapLO0L-tZlECiMg.png" alt="png" /></p>
+
+<p>Now you see a paradoxical thing: the remaining time, operationalized by E_t — t, is not shrinking as we proceed but it is growing. This, of course, does not mean that we cannot finish tasks; it just helps to make increasingly better estimates for the remaining work by factoring the elapsed time into the equation. We can use this knowledge in multiple scenarios. First, it can help teams make better decisions on when to cut or restructure tasks, and in general to understand when they’re like to be finished (i.e. as a rule of thumb reject the notion of finishing in the next hour when the blowup factor is already 2).</p>
+
+<p>Second, this knowledge is also critical to recognize tasks that are becoming impossible to finish in time. We have seen several tasks, which seemed tractable at first sight and then became the bogeyman of the project. It is essential to detect these as early as possible and rethink deliverables, handle expectations, and/or come up with alternative solutions.</p>
+
+<p>Also, the assumption in this exercise is that during the execution of a task, there are no “feedback effects of inspection”. In reality, the feedback of the team during the daily scrum or of the stakeholders during a review may change the approach (with the distribution) and hence the expected time to finish too. In fact, if you look at the distribution of blowup factors in the <a href="https://github.com/Derek-Jones/SiP_dataset">SiP dataset</a> (which Erik also looked at) the right tail is not as heavy as one would expect from a standard lognormal distribution, my hypothesis is that it is exactly those feedback, control and restructuring mechanisms — which kick into action when the blowup factor becomes large — that are responsible for this. So, my main suggestion would be for teams to pay close attention to what plays out in the daily scrums to help avoid story completion time blowup.</p>
+
+<p>Code is available on <a href="https://github.com/agostontorok/TaskCompletionTimeEstimation">github</a></p>
+
+<p>Remarks:</p>
+
+<ul>
+  <li>Derek M. Jones has written  <a href="https://arxiv.org/pdf/1901.01621.pdf">an interesting paper</a>  based on his analysis of the SiP dataset. He is looking forward to analyzing your data as well for free with the condition that he can make an anonymized form of data publicly available. This is a great opportunity to get these parameters for your company.</li>
+  <li>In the current post, I used the lognormal distribution, finding the best fitting distribution though is an active  <a href="http://shape-of-code.coding-guidelines.com/2012/09/03/descriptive-statistics-of-some-agile-feature-characteristics/">field of research</a>.</li>
+  <li>In the SiP dataset estimates were made by single developers and not as a joint effort, also most of the estimates there are in the sub 2 days range.</li>
+</ul>
+
+<p>Thanks for the comments of  <a href="https://scholar.google.com/citations?user=5WMeN5UAAAAJ&amp;hl=en">Adam Csapo</a>,  <a href="https://dblp.uni-trier.de/pers/hd/h/Hahn:J=uuml=rgen_T=">Jürgen Hahn</a>  and  <a href="http://www.knosof.co.uk/ESEUR/">Derek M. Jones</a>  on the first draft.</p>
+
+
+</article>
+
+<div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://agostontorok.github.io/2020/04/01/time_estimates/';
+      this.page.identifier = 'http://agostontorok.github.io/2020/04/01/time_estimates/';
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://agostontorok-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+<aside class="related">
+  <h2 class="aside-title">Related Posts</h2>
+  <ul class="related-posts">
+    
+    
+    
+      
+        
+        
+      
+      
+        <li>
+          <h4>
+            <a href="/2019/08/01/lean/">
+              <span>Lean + Data Science</span>
+              <small>08/01/19</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+      
+      
+        <li>
+          <h4>
+            <a href="/2017/11/28/tools/">
+              <span>My favourite mini tools that make my days easier</span>
+              <small>11/28/17</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+  </ul>
+</aside>
+
+    </main>
+
+    
+
+
+
+<div   id="_backdrop"></div>
+<a     id="_menu" href="#_sidebar">☰</a>
+<aside id="_sidebar" class="sidebar" style="background-image:url('/public/img/P1330220.JPG')">
+  <div class="container sidebar-sticky">
+    <nav class="sidebar-nav">
+      
+
+      
+
+      
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/blog/">Blog</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/games/">Board and online games</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/comics/">Comic strips</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/talks/">Talks</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/book/">Book</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About me</a>
+          
+        
+      
+    </nav>
+
+    <div class="sidebar-social">
+      
+        <a href="https://github.com/agostontorok"><span class="icon-icon-github"></span></a>
+
+      
+
+      
+        <a href="https://medium.com/@torokagoston"><span class="icon-icon-medium"></span></a>
+      
+      
+      
+        <a href="https://www.instagram.com/tddcomics"><span class="icon-icon-instagram"></span></a>
+      
+      
+      
+        <a href="https://linkedin.com/in/agoston-torok"><span class="icon-icon-linkedin"></span></a>
+
+      
+    </div>
+  </div>
+</aside>
+
+
+    <script src="/public/js/hydejack.js" async></script>
+  </body>
+</html>

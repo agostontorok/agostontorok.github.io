@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murder Mystery Ultimate</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-cloud/build/d3.layout.cloud.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Glass+Antiqua&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            color: white;
+            font-family: 'Glass Antiqua', cursive;
+        }
+
+        #title {
+            color: #e8e8ee; /* Off-white color for the title */
+            font-size: calc(20px + 3.9vw);
+            margin-bottom: 0;
+        }
+
+        #subtitle {
+            color: #e8e8ee; /* Off-white color for the subtitle */
+            font-size: calc(15px + 0.39vw);
+            margin-top: 0;
+        }
+
+        #rulebook {
+            margin-top: auto;
+        }
+
+        #copyright {
+            color: #8f8f8f; /* Off-white color for the subtitle */
+            font-size: calc(10px + 0.39vw);
+            margin-top: auto;
+            font-family: 'Arial', cursive;
+        }
+
+        #word-cloud {
+            width: 100%;
+            height: 80%; /* Adjusted for space for the title */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div id="title">Murder Mystery Ultimate</div>
+<div id="subtitle">a game by Agoston Torok</div>
+<div id="word-cloud"></div>
+<div id="subtitle">Tap or Click to change the wordcloud</div>
+<div id="copyright">Copyright © 2023, Agoston Torok. All rights reserved. </div>
+<script>
+    const base_words = ["As revenge", "Because of jealousy", "Out of greed", ".. was angry at",
+         "Had a deep hatred", "Feared that...", "Obsessed with power",
+         "Out of desperation", "To control", "Followed an ideology",
+         "The vehicle was parked...", "had a jacket that was...",
+         "saw a wound that was...", "heard crying...", "had an insurance",
+         "Religion", "on the hill", "on an empty street", "In the middle of the night",
+         "At dawn...",
+         "had a child that was...", "a mother who had", "with the father of...", "have cheated on...",
+         "bought poison...", "Gambling", "An evil sect", "Killing drone",
+         "was a spy on...", "had a secret", "UFOs", "a lipstick mark...",
+         "a business card", "with a private eye...", "while in prison",
+         "a big heist...", "with an old vehicle", "was fired",
+         "Layed off", "got a dangerous loan", "deal with the Mafia", "on drugs",
+         "involved in politics", "found spidervenom...", "a cobra",
+         "found wiretapping", "in the mountainss", "a dark forest",
+         "fear of heights", "an abandoned mining shaft", "to a dark cave...",
+         "a big ship", "on the airport", "stolen passport", "done forgery",
+         "found footprints...", "so the fingerprints...", "Pushed", "Ransom",
+         "Borrowed", "Stole", "Real estate", "Envy", "Tomb", "Spirits", "Dark art"]
+
+    const words = base_words.map(word => {
+        return { text: word, size: 10 };
+    });
+    const width = window.innerWidth;
+    const height = window.innerHeight*0.7;
+    const fill = d3.scaleOrdinal(d3.schemeCategory10);
+    const referenceFontSize = window.innerWidth / 1
+    let svg = 0;
+    let centralWordIndex = Math.floor(Math.random() * base_words.length);
+
+    function generate() {
+        words.forEach((d, i) => {
+            d.size = i === centralWordIndex ? 100 : 5 + Math.random() * 30;
+        });
+
+        const layout = d3.layout.cloud()
+            .size([width, height])
+            .words(words)
+            .padding(5)
+            .rotate(() => 0)
+            .font("Glass Antiqua")
+            .fontSize(d => d.size)
+            .on("end", draw);
+
+        layout.start();
+    }
+
+    function draw(words) {
+        if (!svg) {
+            svg = d3.select("#word-cloud").append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        }
+
+        const text = svg.selectAll("text")
+            .data(words, d => d.text);
+
+        text.enter()
+            .append("text")
+            .style("font-family", "Glass Antiqua, cursive")
+            .style("fill", (d, i) => fill(i))
+            .attr("text-anchor", "middle")
+            .merge(text)
+            .transition()
+            .duration(1000)
+            .style("font-size", d => d.size + "px")
+            .attr("transform", d => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
+            .text(d => d.text);
+
+        text.exit().remove();
+    }
+
+    function updateFocus() {
+        centralWordIndex = Math.floor(Math.random() * base_words.length);
+        generate();
+    }
+
+    document.addEventListener("click", function(event) {
+        event.preventDefault();
+        updateFocus();
+    });
+
+    document.addEventListener("touchend", function(event) {
+        updateFocus();
+    });
+
+    setInterval(updateFocus, 10000);
+
+    generate();
+
+    window.onresize = function(event)
+    {
+    document.location.reload(true);
+    }
+
+
+
+
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YNNVV01QM3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YNNVV01QM3');
+</script>
+
+
+</body>
+</html>

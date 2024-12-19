@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; img-src 'self' https: data:; font-src 'self' https: data:;">
+
+  <title>
+    
+       Lean + Data Science  &middot; ágoston.török
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|PT+Serif:400,400italic,700,700italic" type="text/css">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/jekyll-github.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <link rel="stylesheet" href="/public/css/showcase.css">
+
+  
+
+  
+
+  
+
+  <style>
+    .content a,
+    .related-posts li a:hover {
+      color: #A85641;
+    }
+    ::selection {
+      color: #fff;
+      background: #A85641;
+    }
+    ::-moz-selection {
+      color: #fff;
+      background: #A85641;
+    }
+  </style>
+
+  <!-- Icons -->
+  <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png"> -->
+  <!-- <link rel="shortcut icon" href="/public/favicon.ico"> -->
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="ágoston.török" href="/atom.xml">
+  
+  <!-- Mathjax -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true,
+        tags: 'ams'
+      }
+    };
+  </script>
+	
+</head>
+
+
+  <body>
+
+    <main class="content container">
+      
+
+
+<article class="post">
+  <h1 class="post-title">Lean + Data Science</h1>
+  <div class="post-date">
+    01 August 2019
+    <span> </span>
+  </div>
+  <hr/>
+  <p>I joined this field because of the excitement that we feel upon discovering new patterns in data. With time though, it became clear that identifying patterns is just the first half of this journey. There is another part, which is about sharing this discovery. ‘Sharing’ can be in the form of a presentation, in the form of a change in an existing product or even an entirely new product. Thus the two parts together — nurturing ideas from inception to a product — is the full stack of data science.</p>
+
+<p>In this post, I’m sharing my experience on how to build machine learning models into the software in efficient ways. Before going into details, let’s put up some underlying assumptions:</p>
+
+<ul>
+  <li>Product development requires money. Some companies have more some have less, but, they all want to see a return on their investment.</li>
+  <li>Product development requires time. Time is a universally short supply; therefore, we should make sure to have some ROI anytime we suddenly run out of it.</li>
+  <li>Product development is inherently uncertain. I don’t know what will be the final feature set of the product that we just started to develop, and probably not even the client knows. In this case, we can do two things: 1) be honest and find out together 2) pretend that we know what the market wants (and more often than not fail miserably).</li>
+</ul>
+
+<h1 id="lean-product-development-in-data-science">Lean product development in data science</h1>
+
+<p>Lean manufacturing has a proven track record in several industries. Although it was originally formed as a methodology for the automobile industry, it has been extended to software development as well, thanks to the  <a href="https://www.amazon.com/Lean-Software-Development-Agile-Toolkit/dp/0321150783">brilliant work of Mary and Tom Poppendieck</a>. The central tenet of lean is to reduce waste in the process to maximise productivity. The Poppendiecks identify seven types of waste for software. Here they are, anchored to data science practices.</p>
+
+<ol>
+  <li><strong>Partially done work</strong>. I consider most Jupyter notebooks as prime examples. They are partially done work because you usually do not add either documentation or tests. Importantly, it’s not a waste in the past: it’s waste in the future. Waste every time someone wonders what that purpose of that notebook was? Waste every time someone wants to build from it and it turns out that you left off with a not linear run of the cells.</li>
+  <li><strong>Extra features</strong>. Not so long ago we were really pushing the roll-out of a feature because we wanted to prove that it works. It worked. Unfortunately, we did not see that the question was not doubt in whether the feature would work from a machine learning perspective but doubt whether it would work on the market. Because of this misunderstanding, we wasted two weeks of effort and a few hours on maintenance from time to time.</li>
+  <li><strong>Relearning</strong>. A straightforward illustration is that code that everyone writes from scratch every time but is intricate enough to spend a good 2 hours reimplementing it. Think of reading the data, setting up the cross-validation etc.</li>
+  <li><strong>Handoffs</strong>. A little bit different from relearning in the sense that this is something you can’t avoid. Code handover, though, can be optimised as a process. One prominent place of handover that I often see is between prototyping and product data teams.</li>
+  <li><strong>Task switching</strong>. You are in a hurry — which is the usual case — so you decide to work on two features at the same time. Maybe you even do this because otherwise, you feel that you would spend too much time on one and won’t have time for the second.</li>
+  <li><strong>Delays</strong>. Approval time on a budget, on allocation, waiting for QA, waiting for a model to train, waiting for the tests to pass and so on. Although it would be ideal if in these times people could relax for 10 minutes, usually that does not happen. Instead because of frustration, they start working around it (e.g. begin implementing the next feature).</li>
+  <li><strong>Defects</strong>. Loss goes NaN; the probability is 1.2; model serialised in a different version, missing data in production… And so on. Writing well-covered code does not mean you are not going to face defects, but fixing those defects will be significantly easier.</li>
+</ol>
+
+<p>We can easily agree that reducing these wastes certainly helps in providing more reliable output. The usual question is whether there is a way to overcome these wastes in a time and cost-efficient way. I believe that the key is embracing the uncertainty and design for that from day 1.</p>
+
+<h1 id="embracing-uncertainty">Embracing uncertainty</h1>
+
+<p>Embracing uncertainty means accepting the fact that we don’t know everything. We don’t know if that GAN is going to be better than some simple affine transformation for data generation, we don’t know if the product idea that we have now is of any interest to real customers, we don’t know many things. However, we can have good practices that help us answer these questions in the right way at the right time.</p>
+
+<p><img class="  wp-image-74 alignright" src="https://miro.medium.com/max/1400/1*O6oviG37CJVeDa7y8HEh0w.png" alt="" width="auto" height="350" />
+<em>Harry called everyone for a brainstorming meeting to do some market research. The aim of the meeting is to finetune the scope of the company’s next breakthrough product.</em></p>
+
+<p>The bases of these good practices are communication and hypotheses. In a  <a href="https://medium.com/@torokagoston/test-driven-development-and-data-science-cf78ec3a9ed0">previous post</a>  of this series, I was already talking about the importance of hypotheses. That time it was hypotheses on the unit and system level, here, I’m going to talk about the importance of hypotheses on the business unit level. The  <a href="https://www.cbinsights.com/research/startup-failure-reasons-top/">most important reason for products failing</a>  is not meeting the market need. What often happens with data science products is that the team is delaying the release because, e.g. the model is not performing well in all cases. Then when the release finally happens suddenly, no one seems to care.</p>
+
+<p>The reason behind these stories is a wrong concept of product development. Before implementing a feature for one year, we first have to make sure that the feature is needed.  Let’s t<a href="https://x.ai/blog/the-x-ai-story-chapter-1/">ake the story of x.ai</a> am AI-driven meeting scheduler. They had ideas about how to solve the problem with machine learning, but instead of implementing it from the ground up first, they started to test the concept with the help of a human meeting scheduler. They have learnt tremendously about the market needs and thanks to that now they have a growing business. This was only possible by making the right choice to embrace uncertainty and reduce waste by not implementing features before it was clear whether they are bringing value to the customers.</p>
+
+<h1 id="the-full-stack-of-data-science">The full stack of data science</h1>
+
+<p>A senior colleague of mine asked me after reading the TDD post how much that is for data scientists, how much for software engineers interacting with them and how much for data engineers. This question made me think of how I see the data science practice. I understand the data science team as a special part of the software development process. Since machine learning requires an in-depth knowledge of math (especially statistics), people often join from various non-software development fields to the team. That is good since these skills are traditionally missing from software engineering studies.</p>
+
+<p><img class="  wp-image-74 alignright" src="https://miro.medium.com/max/1400/1*QTVtzD7iqhjYhkSZRyf_4w.png" alt="" width="auto" height="350" />
+<em>Sometimes waste is hard to distinguish from the expertise.</em></p>
+
+<p>However, a machine learning model is part of the software and therefore, it has to be seamlessly integrated. Let’s say you have built an excellent image classifier but it does not fit the target device memory; the data points on the stream are not arriving in temporal order; we have to read the data very fast in order to provide realtime feedback; the output of the model should be displayed in a valid yet easy to understand way. This means a good data scientist should have an understanding of the end to end process as well.</p>
+
+<p>Nowadays the market calls such professional the full-stack data scientist (and we often refer as the unicorn). I can also add here that the way how someone becomes a full-stack data scientist is fastest via communication. You go to the desk of the software developer and ask (it’s okay to ask even two times the same thing). You learn from the DevOps colleague when he is explaining how he solves efficiently the model deployment. You tell your new idea of model access to the data engineer maybe she already implemented that feature or knows about it. Luckily, I have several examples with colleagues who became data science unicorns by this simple recipe.</p>
+
+<p>As a final thought, I’m convinced that before looking for unicorns in the job market, all company should look inside and see whether they can nurture it. It could be that the answer is ‘yes, but we don’t have time for that’ nevertheless only the culture nurturing such talents can utilize their full potential.</p>
+
+
+</article>
+
+<div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://agostontorok.github.io/2019/08/01/lean/';
+      this.page.identifier = 'http://agostontorok.github.io/2019/08/01/lean/';
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://agostontorok-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+<aside class="related">
+  <h2 class="aside-title">Related Posts</h2>
+  <ul class="related-posts">
+    
+    
+    
+      
+      
+        <li>
+          <h4>
+            <a href="/2020/02/01/challenges/">
+              <span>Three challenges of the AI product lifecycle</span>
+              <small>02/01/20</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+      
+        
+        
+      
+      
+        <li>
+          <h4>
+            <a href="/2018/01/11/data_science_product_development/">
+              <span>Minimal example for the development of a data science product</span>
+              <small>01/11/18</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+  </ul>
+</aside>
+
+    </main>
+
+    
+
+
+
+<div   id="_backdrop"></div>
+<a     id="_menu" href="#_sidebar">☰</a>
+<aside id="_sidebar" class="sidebar" style="background-image:url('/public/img/P1330220.JPG')">
+  <div class="container sidebar-sticky">
+    <nav class="sidebar-nav">
+      
+
+      
+
+      
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/blog/">Blog</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/games/">Board and online games</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/comics/">Comic strips</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/talks/">Talks</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/book/">Book</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About me</a>
+          
+        
+      
+    </nav>
+
+    <div class="sidebar-social">
+      
+        <a href="https://github.com/agostontorok"><span class="icon-icon-github"></span></a>
+
+      
+
+      
+        <a href="https://medium.com/@torokagoston"><span class="icon-icon-medium"></span></a>
+      
+      
+      
+        <a href="https://www.instagram.com/tddcomics"><span class="icon-icon-instagram"></span></a>
+      
+      
+      
+        <a href="https://linkedin.com/in/agoston-torok"><span class="icon-icon-linkedin"></span></a>
+
+      
+    </div>
+  </div>
+</aside>
+
+
+    <script src="/public/js/hydejack.js" async></script>
+  </body>
+</html>

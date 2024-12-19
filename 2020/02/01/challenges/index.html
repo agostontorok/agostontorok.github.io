@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; img-src 'self' https: data:; font-src 'self' https: data:;">
+
+  <title>
+    
+       Three challenges of the AI product lifecycle  &middot; ágoston.török
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|PT+Serif:400,400italic,700,700italic" type="text/css">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/jekyll-github.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <link rel="stylesheet" href="/public/css/showcase.css">
+
+  
+
+  
+
+  
+
+  <style>
+    .content a,
+    .related-posts li a:hover {
+      color: #A85641;
+    }
+    ::selection {
+      color: #fff;
+      background: #A85641;
+    }
+    ::-moz-selection {
+      color: #fff;
+      background: #A85641;
+    }
+  </style>
+
+  <!-- Icons -->
+  <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png"> -->
+  <!-- <link rel="shortcut icon" href="/public/favicon.ico"> -->
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="ágoston.török" href="/atom.xml">
+  
+  <!-- Mathjax -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true,
+        tags: 'ams'
+      }
+    };
+  </script>
+	
+</head>
+
+
+  <body>
+
+    <main class="content container">
+      
+
+
+<article class="post">
+  <h1 class="post-title">Three challenges of the AI product lifecycle</h1>
+  <div class="post-date">
+    01 February 2020
+    <span> </span>
+  </div>
+  <hr/>
+  <p>Working on AI products — Whether it is retail, IoT, or marketing — data scientists face similar challenges. Some of these challenges are general to many technology areas, others are specific to AI, due to its unique way this field blurs the boundaries between state-of-the-art research and application development. Let’s look at three prototypical examples of these challenges in the areas of business specification, iterative development of analytics, and testing.</p>
+
+<h1 id="specification-of-business-requirements">Specification of business requirements</h1>
+
+<h2 id="the-challenge">The challenge</h2>
+
+<p>One of the most frequent topics that we data science practitioners like to talk about is the question of how business requirements are formulated. This can bring with it a variety of challenges depending on the perspective someone takes. On one end of the spectrum, we often like to make the claim that t_he people in charge of the business (the CEO, board, marketing team, sales team, product managers etc.) do not know what they want_. This is a frustrating place to be. On the other end of the spectrum, we often boast (without a hint of self-pity) that  <em>the business unit commissioned us to build something akin to a time machine or teleportation tube</em>. As you can imagine, this isn’t an enviable place to be in, either.</p>
+
+<p><img class="  wp-image-74 alignright" src="https://miro.medium.com/max/1154/1*jL8sMUOela9ldwJb_wVu7w.jpeg" alt="" width="auto" height="350" />
+<em>Meme created by the author using https://imgflip.com/</em></p>
+
+<h2 id="the-solution">The solution</h2>
+
+<p>Although these two issues seem remarkably different on the surface, their root cause is actually the same. To put it in simple terms, each development project has a value and a cost. Business people typically know the value of things. However, in the field of AI, the cost is much more difficult to figure out in advance. It’s so difficult that it is challenging even for us, just think about how often you struggle to come up with what number to show in the scrum poker for a story. There are just too many unknowns in the development phase, especially when we aim for the bleeding edge. Still, we data scientists are the people with the most information and therefore the widest perspective on the cost of development so we have an obligation to share what we know. Sure, the business leadership might push back, so we may be forced to settle for a less complex solution.  <strong>However, without this two-way communication link between the business and R&amp;D, the business either will either stall (see issue 1) or will rush into a decision and choose to stake its fortune in something clearly valuable (but perhaps unattainable, see issue 2).</strong>  So we, as data scientist, should not just wait for specifications to come. It is imperative that we forget waterfall-like requirement documents and begin such two-way conversations that will yield a product that is both feasible and valuable.</p>
+
+<p>A related point is the notion of ‘just in time decisions’. Decisions are usually costly steps in development; when you decide to go for a neural network over a simple linear regression you make an important restriction on the possible solutions. Restrictions can turn out to be both positive and negative with time. Therefore,  it is crucial to postpone the introduction of restrictions until we have enough information  to predict their effect well. Usually, this is just before the moment when it gets “too late”. This, of course, results in an inherent feeling of uncertainty during the development process but knowing the underlying reasons should help to embrace it.</p>
+
+<h1 id="iterative-development-of-analytics">Iterative development of analytics</h1>
+
+<h2 id="the-challenge-1">The challenge</h2>
+
+<p>Once the business decides to go for the development, another set of issues pops up. Iterative development as such is usually far from the researcher’s mind, resulting in conversations such as  <em>I either implement that deep convolutional network to classify the images or the problem will not be solved</em>  or  <em>Why would I bother implementing a baseline solution what it would perform like?</em>  In academic practice, it is often hard to argue with these points. The main focus is on novelty and not on invested time. While this motivation is the force pushing science beyond its boundaries every day, novelty in itself is not valuable. And the desperate search for novum in science can even be counterproductive (see the  <a href="https://en.wikipedia.org/wiki/Replication_crisis">replication crisis</a>).</p>
+
+<h2 id="the-solution-1">The solution</h2>
+
+<p>In data science, the main focus is on creating value.  <strong>Novelty is not a value per se, and even more importantly, value is not only the result of your work.</strong> To better highlight this, let me give an example. In data science, we often face situations when we know that there would be some really good solution to a challenge… if only we had a little more labelled data. In at least one specific case, my team was exactly in this situation. We were telling sales/marketing that we can give the predictions they want if they give us more data. They were telling that when we give them more precise predictions only then they can get more data. Vicious cycle. For an underfunded project this could easily be the death sentence, the data scientists are complaining because of the lack of data, the sales is complaining because of lack of results. Complaining still consumes resources (cost) but no value is created so the project will be cancelled. In our case, luckily, we quickly came to see that value is best understood as an insight we could  <em>deliver today</em>, no insight that we could  <em>hypothetically gain</em>  given more data. So we solved part of the problem with a much simpler model and gave sales better (but far from the best possible) predictions. That, in turn, enabled them to bring us more data. So in the next iteration, we were able to go for the more complex model.</p>
+
+<p>Time — whether it be time spent running a program, doing research or carrying out a development project — is of the essence in commercial data science. Maybe you are working on a well-funded project so running out of money does not affect you on the short term. Still, even if you are working on some fresh topic, probably tens or even hundreds of other companies around the world are working on the same topic. You don’t have to be first all the time but it is vital to keep up with the pace and be there at every checkpoint. This is because  product development is not a sprint but a marathon, so your development style has to be like the body of a marathon runner as well. Marathon is not about sudden big leaps in various directions; it is about maintaining a predictable, steady pace over a long time.</p>
+
+<p><img class="  wp-image-74 alignright" src="https://miro.medium.com/max/1000/1*qFaFHvw5s8kxGKoqczx56g.jpeg" alt="" width="auto" height="350" />
+<em>Meme created by the author using https://imgflip.com/</em></p>
+
+<h1 id="testing-and-validation">Testing and validation</h1>
+
+<h2 id="the-challenge-2">The challenge</h2>
+
+<p>You have a clear business need, you have a nice development flow, what can go wrong? You are trying to innovate in a structured way. Striving for predictability in cost and value could easily inhibit motivation for approaches which are less predictable. So it is crucial that we get feedback from our customers as often as possible so that we can learn what is of most value to them. That way we can steer development to more costly but also substantially more valuable directions. This feedback is operationalized in the form of testing. Testing for an AI-powered product is essential.  <strong>Developing a full-fledged AI product takes a lot of time and money, so developing something that doesn’t directly address business needs is a huge waste.</strong></p>
+
+<h2 id="the-solution-2">The solution</h2>
+
+<p>Data science problems are often so complex that you have to abstract away from the real challenge to solve them. Here, I use the word  <em>abstract</em> in the sense that we use data from the past that is (maybe somehow) filtered, (maybe somehow) labelled; we use that instead of future data that may come in an unselected, unfiltered, and unlabelled form. While this may sound trivial it’s also something that you have to keep in mind constantly. Forgetting this leads to discussions such as  <em>“but it showed a really good fit on my test set”.</em> Not once have I heard of a model going into production based on its performance in the abstract (training-validation-test set) case, without monitoring whether its performance generalizes to the concrete situation as well.</p>
+
+<p>In many cases, data scientists opt for the ritual of looking at metrics on test sets and cross-validation scores and forget that generalization is much more important than those numbers. In fact, the numbers that you see (e.g. F1 score) is not the actual accuracy of your model. The F1 score that you see is only an estimate of the true, population-wide F1 score. Interestingly though, it is difficult to tell how far the sampled F1 score is from the population F1 score. Data scientists must rely on their experience and even their gut feeling for this. It is somewhat ironic that in a field where we are so obsessed with numbers there is still so much space for expert intuition.</p>
+
+<p>It is bad practice, though, to not try to quantify these kinds of intuitions. Let me explain what I mean. When I see an F1 score of 0.98 I should start to worry because that number is simply too high for most real-world scenarios. It could be that I made a mistake and my test samples were present in the training set, or that there was a feature that, when available, exactly predicted the output class. Let’s say I checked both of these potential causes and noticed that the latter was the case so I calm down and submit the code.</p>
+
+<p>What’s wrong here? I had a good intuition, investigated it, and made sure that the model is correct. True… but apart from this anecdote, there is no documentation of this exploration. This means that the next time someone else trains a new iteration model she has to go through the same discovery again (see relearning as a source of waste in the lean literature). So the ideal outcome of the investigation is that I split the test set into two parts: in one I have the definitive feature, in the other, I have examples without that feature. I maybe even set different F1 measure acceptance criteria for them. This way, I’m communicating my expert intuition for subsequent data scientists working on the product.</p>
+
+<p>Thanks to  <a href="https://medium.com/@divenyijanos">Janos Divenyi</a> and to  <a href="https://scholar.google.com/citations?user=5WMeN5UAAAAJ&amp;hl=en">Adam Csapo</a>  for their useful comments on the first version of this post.</p>
+
+</article>
+
+<div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://agostontorok.github.io/2020/02/01/challenges/';
+      this.page.identifier = 'http://agostontorok.github.io/2020/02/01/challenges/';
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://agostontorok-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+<aside class="related">
+  <h2 class="aside-title">Related Posts</h2>
+  <ul class="related-posts">
+    
+    
+    
+      
+      
+        <li>
+          <h4>
+            <a href="/2020/04/01/time_estimates/">
+              <span>Why do overdue tasks take still a long time to finish?</span>
+              <small>04/01/20</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+      
+        
+        
+      
+      
+        <li>
+          <h4>
+            <a href="/2019/08/01/lean/">
+              <span>Lean + Data Science</span>
+              <small>08/01/19</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+      
+      
+        <li>
+          <h4>
+            <a href="/2019/03/01/effectivedsteams3/">
+              <span>Test-driven development and data science</span>
+              <small>03/01/19</small>
+            </a>
+          </h4>
+        </li>
+      
+    
+  </ul>
+</aside>
+
+    </main>
+
+    
+
+
+
+<div   id="_backdrop"></div>
+<a     id="_menu" href="#_sidebar">☰</a>
+<aside id="_sidebar" class="sidebar" style="background-image:url('/public/img/P1330220.JPG')">
+  <div class="container sidebar-sticky">
+    <nav class="sidebar-nav">
+      
+
+      
+
+      
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/blog/">Blog</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/games/">Board and online games</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/comics/">Comic strips</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/talks/">Talks</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/book/">Book</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About me</a>
+          
+        
+      
+    </nav>
+
+    <div class="sidebar-social">
+      
+        <a href="https://github.com/agostontorok"><span class="icon-icon-github"></span></a>
+
+      
+
+      
+        <a href="https://medium.com/@torokagoston"><span class="icon-icon-medium"></span></a>
+      
+      
+      
+        <a href="https://www.instagram.com/tddcomics"><span class="icon-icon-instagram"></span></a>
+      
+      
+      
+        <a href="https://linkedin.com/in/agoston-torok"><span class="icon-icon-linkedin"></span></a>
+
+      
+    </div>
+  </div>
+</aside>
+
+
+    <script src="/public/js/hydejack.js" async></script>
+  </body>
+</html>

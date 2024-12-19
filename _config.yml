@@ -56,7 +56,7 @@ plugins:
 # Medium Feed Settings
 jekyll_get_json:
   - data: medium_feed
-    json: "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@torokagoston&api_key=%{RSS2JSON_API_KEY}"
+    json: "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@torokagoston&api_key=umkiwjmh3plsdasx9xjqa0ft5c0h5ydknny9gywr"
     cache: true
 
 # Exclude from processing

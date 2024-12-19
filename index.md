@@ -48,18 +48,19 @@ I believe in continuous learning and self-improvement. You can also find me shar
       {% assign words = standardized_tag | split: ' ' %}
       {% assign filtered_words = '' | split: '' %}
       {% for word in words %}
-        {% assign trimmed_word = word | strip %}
+        {% assign trimmed_word = word | strip | strip_newlines %}
         {% if trimmed_word != '' %}
           {% assign filtered_words = filtered_words | push: trimmed_word %}
         {% endif %}
       {% endfor %}
       {% capture capitalized_tag %}
         {% for word in filtered_words %}
-          {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
+          {{ word | capitalize | strip | strip_newlines }}{% unless forloop.last %} {% endunless %}
         {% endfor %}
       {% endcapture %}
       {% assign capitalized_tag = capitalized_tag | strip | strip_newlines %}
       {% assign processed_tags = processed_tags | push: capitalized_tag %}
+      <div style="display:none">Processed tag: '{{ tag }}' -> '{{ capitalized_tag }}'</div>
     {% endif %}
   {% endfor %}
   
@@ -97,64 +98,90 @@ I believe in continuous learning and self-improvement. You can also find me shar
   <!-- Create tag contents -->
   <div class="tag-contents">
   {% for tag in all_tags %}
-    {% assign standardized_tag = tag | strip %}
-    <div id="{{ standardized_tag | slugify }}" class="tag-content">
+    <div id="{{ tag | slugify }}" class="tag-content">
       <ul>
-      <li style="display:none">Debug - Raw tag: '{{ standardized_tag }}'</li>
-      {% assign tag_normalized = standardized_tag | strip | strip_newlines | downcase | replace: " ", "" | replace: "-", "" %}
-      <li style="display:none">Debug - After normalization: '{{ tag_normalized }}'</li>
-      {% for post in site.data.medium_feed.items %}
-        {% for category in post.categories %}
-          {% assign normalized_category = category | strip | strip_newlines | downcase | replace: " ", "" | replace: "-", "" %}
-          <li style="display:none">Debug - Comparing: '{{ normalized_category }}' with '{{ tag_normalized }}'</li>
-          {% if normalized_category == tag_normalized %}
-            <li>
-              <a href="{{ post.link }}" target="_blank">{{ post.title }}</a>
-              <small>({{ post.pubDate | date: '%d %B %Y' }}) (Medium)</small>
-            </li>
-            {% break %}
-          {% endif %}
-        {% endfor %}
-      {% endfor %}
+      <li style="display:none">Looking for tag: '{{ tag }}'</li>
+      {% assign content_items = '' | split: '' %}
       
+      <!-- Collect all content items -->
       {% for post in site.posts %}
-        {% for post_tag in post.tags %}
-          {% assign current_tag = post_tag | strip | downcase | replace: "-", " " %}
-          {% assign words = current_tag | split: ' ' %}
-          {% capture capitalized_current_tag %}
-            {% for word in words %}
-              {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
-            {% endfor %}
-          {% endcapture %}
-          {% assign capitalized_current_tag = capitalized_current_tag | strip %}
-          {% if capitalized_current_tag == standardized_tag %}
-            <li>
-              <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-              <small>({{ post.date | date: '%d %B %Y' }})</small>
-            </li>
-          {% endif %}
-        {% endfor %}
+        {% assign item = '' | split: '' %}
+        {% assign item = item | push: post.title %}
+        {% assign item = item | push: post.url %}
+        {% assign item = item | push: post.date %}
+        {% assign item = item | push: 'post' %}
+        {% assign item = item | push: post.tags %}
+        {% assign content_items = content_items | push: item %}
       {% endfor %}
       
       {% for page in site.pages %}
         {% if page.tags %}
-          {% for page_tag in page.tags %}
-            {% assign current_tag = page_tag | strip | downcase | replace: "-", " " %}
-            {% assign words = current_tag | split: ' ' %}
-            {% capture capitalized_current_tag %}
-              {% for word in words %}
-                {{ word | capitalize }}{% unless forloop.last %} {% endunless %}
-              {% endfor %}
-            {% endcapture %}
-            {% assign capitalized_current_tag = capitalized_current_tag | strip %}
-            {% if capitalized_current_tag == standardized_tag %}
-              <li>
-                <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-                <small>(Page)</small>
-              </li>
+          {% assign item = '' | split: '' %}
+          {% assign item = item | push: page.title %}
+          {% assign item = item | push: page.url %}
+          {% assign item = item | push: '' %}
+          {% assign item = item | push: 'page' %}
+          {% assign item = item | push: page.tags %}
+          {% assign content_items = content_items | push: item %}
+        {% endif %}
+      {% endfor %}
+      
+      {% for medium_post in site.data.medium_feed.items %}
+        {% assign item = '' | split: '' %}
+        {% assign item = item | push: medium_post.title %}
+        {% assign item = item | push: medium_post.link %}
+        {% assign item = item | push: medium_post.pubDate %}
+        {% assign item = item | push: 'medium' %}
+        {% assign item = item | push: medium_post.categories %}
+        {% assign content_items = content_items | push: item %}
+      {% endfor %}
+      
+      <!-- Process items -->
+      {% for item in content_items %}
+        {% assign item_title = item[0] %}
+        {% assign item_url = item[1] %}
+        {% assign item_date = item[2] %}
+        {% assign item_type = item[3] %}
+        {% assign item_tags = item[4] %}
+        
+        <li style="display:none">Processing {{ item_type }}: {{ item_title }} with tags: {{ item_tags | join: ', ' }}</li>
+        
+        {% for item_tag in item_tags %}
+          {% assign standardized_tag = item_tag | strip | strip_newlines | downcase | replace: "-", " " | replace: '"', '' %}
+          {% assign words = standardized_tag | split: ' ' %}
+          {% assign filtered_words = '' | split: '' %}
+          {% for word in words %}
+            {% assign trimmed_word = word | strip | strip_newlines %}
+            {% if trimmed_word != '' %}
+              {% assign filtered_words = filtered_words | push: trimmed_word %}
             {% endif %}
           {% endfor %}
-        {% endif %}
+          {% capture capitalized_tag %}
+            {% for word in filtered_words %}
+              {{ word | capitalize | strip | strip_newlines }}{% unless forloop.last %} {% endunless %}
+            {% endfor %}
+          {% endcapture %}
+          {% assign capitalized_tag = capitalized_tag | strip | strip_newlines %}
+          {% assign comparison_tag = tag | remove: " " %}
+          {% assign comparison_item_tag = capitalized_tag | remove: " " %}
+          <li style="display:none">Comparing '{{ comparison_item_tag }}' with '{{ comparison_tag }}'</li>
+          
+          {% if comparison_item_tag == comparison_tag %}
+            <li>
+              {% if item_type == 'medium' %}
+                <a href="{{ item_url }}" target="_blank">{{ item_title }}</a>
+                <small>({{ item_date | date: '%d %B %Y' }}) (Medium)</small>
+              {% elsif item_type == 'page' %}
+                <a href="{{ site.baseurl }}{{ item_url }}">{{ item_title }}</a>
+                <small>(Page)</small>
+              {% else %}
+                <a href="{{ site.baseurl }}{{ item_url }}">{{ item_title }}</a>
+                <small>({{ item_date | date: '%d %B %Y' }})</small>
+              {% endif %}
+            </li>
+            {% break %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
       </ul>
     </div>

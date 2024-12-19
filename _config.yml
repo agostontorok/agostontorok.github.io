@@ -51,13 +51,16 @@ plugins:
   - jekyll-paginate
   - jekyll-gist
   - jekyll-commonmark-ghpages
-  - jekyll-get-json
+  - jekyll-coffeescript
+  - jekyll-github-metadata
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
 
 # Medium Feed Settings
-jekyll_get_json:
-  - data: medium_feed
-    json: "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@torokagoston&api_key=umkiwjmh3plsdasx9xjqa0ft5c0h5ydknny9gywr"
-    cache: true
+medium_feed_file: _data/medium_feed.json
 
 # Exclude from processing
 exclude:

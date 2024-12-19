@@ -2,7 +2,7 @@
 title: "Quantifying trust"
 layout: post
 date: '2018-04-15'
-tags: ["bayesian", "social casuses", storytelling, "infographics"]
+tags: ["bayesian", "social causes", storytelling, "infographics"]
 ---
 
 I posted today some thoughts about how we can quantify trust on [LinkedIn](https://www.linkedin.com/pulse/quantifying-trust-%C3%A1goston-t%C3%B6r%C3%B6k-phd/). Here is some exclusive blog content in the same topic.

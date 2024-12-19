@@ -4,6 +4,7 @@ encoding: UTF-8
 
 # Setup
 url:              http://agostontorok.github.io
+repository:        agostontorok/agostontorok.github.io
 
 # Set to '' in case of hosting on `http://<your-github-name>.github.io`
 baseurl:          ''

@@ -2,6 +2,7 @@
 layout: page
 title: Talks
 order: 4
+tags: ["Public Speaking", "Leadership", "Talks"]
 ---
 
 In the past, I've given talks at conferences and meetups about AI, leadership, and software development. These days, I'm mostly sharing my experiences in more exclusive settings.

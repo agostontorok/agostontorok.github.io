@@ -2,7 +2,7 @@
 layout: page
 title: Board and online games
 order: 2
-tags: ["Board Games"]
+tags: ["Board Games", "Game Design", "AI"]
 ---
 
 I'm working on four games at the moment:

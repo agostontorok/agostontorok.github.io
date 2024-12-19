@@ -2,6 +2,7 @@
 layout: page
 title: Comic strips
 order: 3
+tags: [Comics, Humor]
 ---
 
 I'm the creator of **The Data Department comics**, more famously known as **tddcomics**, which features the extraordinary adventures of John and his team in the department of cloud-based data-driven AI-enabled magic.

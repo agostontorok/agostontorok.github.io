@@ -1,15 +1,15 @@
 ---
 layout: page
 title: About me
-order: 6
+order: 7
 ---
 
 
 Hello, My name is Agoston Torok. 
 
-I write here and on [medium](https://medium.com/@torokagoston) about leadership challenges and doing AI beyond the hype: developing statistics & machine learning solutions using software development (Lean, TDD) best practices to build maintainable software and useful products. I'm CTO at [Promaton](https://www.promaton.com/), changing dental treatment planning in the here and now. 
+I write here and on [medium](https://medium.com/@torokagoston) about leadership challenges and doing AI beyond the hype.
 
-By the way, I was the creator of [The Data Department](https://www.instagram.com/tddcomics/), a cartoon series about data science and tech development and recently started board game development too.
+During working hours, I'm CTO at [Promaton](https://www.promaton.com/), changing dental treatment planning using AI in the here and now. Outside of work, I explore new technologies and art forms: I design [board games](../games), draw [comic strips](../comics), read a lot of [books](https://www.goodreads.com/user/show/78912108-goston-t-r-k) and research art provenance and authentication.
 
 That's it... 
 
@@ -21,4 +21,4 @@ In another project, we showed the [neural evidence for why virtual teleportation
 
 As time went by, my focus turned to how we can apply research results to create better products. I was fortunate to join [Synetiq](https://www.youtube.com/watch?v=3Nl8Y2y2jgk) and lead their R&D team. We created a fully-automated data analysis pipeline turning eye-tracking, heart rate, galvanic skin response and EEG signals into testable and objective marketing insights. This pipeline is still the basis of their record-long-running tracking study. 
 
-And finally, some fun facts: long time ago I designed my own [3D presentation toolkit](https://github.com/agostontorok/slides-of-loci), I play cricket, and I love visiting skyscrapers.
+And finally, some fun facts: I'm the  creator of [The Data Department](https://www.instagram.com/tddcomics/), long time ago I designed my own [3D presentation toolkit](https://github.com/agostontorok/slides-of-loci), I play cricket, and I love visiting skyscrapers.

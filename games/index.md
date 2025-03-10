@@ -16,5 +16,5 @@ A fun party game about a sabotage at an AI company. You all work there and one o
 ## [Murder Mystery Ultimate](murdermysteryultimate)
 A fun party game that provides the ultimate detective experience without deception and scripts. For 3-6 players, 12yrs+ and takes 30-45 min. I have the components also ready in PnP version over [BGG](https://boardgamegeek.com/thread/3364734/wip-murder-mystery-ultimate).
 
-## [Robot Detective](https://poe.com/RobotDetective)
+## [Robot Detective](https://poe.com/RobotDetectiveGame)
 An AI-powered detective game where you can solve mysteries with the help of an AI assistant. For 1 player, 12yrs+ and takes 15-30 min.

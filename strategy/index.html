@@ -10,7 +10,8 @@ order: 2
     <div class="wardley-map-container">
       <a href="https://wardley-torok-map-creator.windsurf.build/" target="_blank" class="wardley-map-link">
         <div class="wardley-map-preview">
-          <img src="/images/strategy/wardley-map-preview.png" alt="Wardley-Torok Map Creator Preview" class="preview-image">
+          <!-- Debug: {{ site.baseurl }} = {{ site.baseurl }} -->
+          <img src="{{ site.baseurl }}/images/strategy/wardley-map-preview.png" alt="Wardley-Torok Map Creator Preview" class="preview-image" onerror="console.error('Failed to load image:', this.src)">
           <div class="wardley-map-overlay">
             <span>Click to open Wardley-Torok Map Creator in full screen</span>
           </div>
@@ -25,7 +26,7 @@ order: 2
     <div class="medium-article-container">
       <a href="https://medium.datadriveninvestor.com/how-to-draw-a-strategy-in-4-steps-2e6232e4578f" target="_blank" class="medium-article-link">
         <div class="medium-article-preview">
-          <img src="/images/strategy/medium-article-preview.png" alt="Medium Article Preview" class="preview-image">
+          <img src="{{ site.baseurl }}/images/strategy/medium-article-preview.png" alt="Medium Article Preview" class="preview-image" onerror="console.error('Failed to load image:', this.src)">
           <div class="medium-article-overlay">
             <span>Read on Medium: How to Draw a Strategy in 4 Steps</span>
           </div>

@@ -4,73 +4,151 @@ title: Strategy Mapping
 order: 2
 ---
 
-<div class="strategy-container">
-  <h1>Strategy Mapping</h1>
-  <p>Interactive Wardley Maps for strategic planning and business analysis.</p>
-  
-  <div class="wardley-map-container">
-    <a href="https://wardley-torok-map-creator.windsurf.build/" target="_blank" class="wardley-map-link">
-      <div class="wardley-map-preview">
-        <img src="/public/img/wardley-map-preview.jpg" alt="Wardley Map Preview">
-        <div class="wardley-map-overlay">
-          <span>Click to open in full screen</span>
+<div class="strategy-content">
+  <section class="wardley-map-section">
+    <h2>Wardley Map Creator</h2>
+    <div class="wardley-map-container">
+      <a href="https://wardley-torok-map-creator.windsurf.build/" target="_blank" class="wardley-map-link">
+        <div class="wardley-map-preview">
+          <div class="wardley-map-overlay">
+            <span>Click to open Wardley Map Creator in full screen</span>
+          </div>
         </div>
-      </div>
-    </a>
-  </div>
+      </a>
+    </div>
+    <p class="map-description">Interactive tool for creating and exploring Wardley Maps, which help visualize the evolution of business components and their relationships.</p>
+  </section>
+
+  <section class="medium-article-section">
+    <h2>Featured Article</h2>
+    <div class="medium-article-container">
+      <a href="https://medium.datadriveninvestor.com/how-to-draw-a-strategy-in-4-steps-2e6232e4578f" target="_blank" class="medium-article-link">
+        <div class="medium-article-preview">
+          <div class="medium-article-overlay">
+            <span>Read on Medium: How to Draw a Strategy in 4 Steps</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <p class="article-description">Learn the fundamentals of strategic mapping and how to effectively communicate your business strategy using Wardley Maps.</p>
+  </section>
 </div>
 
 <style>
-.strategy-container {
+.strategy-content {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
 }
 
-.wardley-map-container {
-  margin: 30px 0;
-  text-align: center;
+.wardley-map-section,
+.medium-article-section {
+  margin-bottom: 60px;
 }
 
-.wardley-map-preview {
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.map-description,
+.article-description {
+  margin-top: 15px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.wardley-map-container,
+.medium-article-container {
+  max-width: 800px;
+  margin: 0 auto;
   position: relative;
-  display: inline-block;
-  border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.wardley-map-preview:hover {
+.wardley-map-container:hover,
+.medium-article-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.wardley-map-preview img {
-  max-width: 100%;
-  height: auto;
+.wardley-map-link,
+.medium-article-link {
   display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
-.wardley-map-overlay {
+.wardley-map-preview,
+.medium-article-preview {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.wardley-map-preview {
+  background-image: url('https://wardleymaps.com/static/wardley-maps-9c5f70653d4b882efceb3c0a9afb6e84.png');
+}
+
+.medium-article-preview {
+  background-image: url('https://miro.medium.com/max/1400/1*Q4zZ5XQxYQYQYQYQYQYQ.jpeg');
+  background-color: #f8f9fa;
+}
+
+.wardley-map-overlay,
+.medium-article-overlay {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 20px;
   text-align: center;
-  transition: background 0.3s ease;
 }
 
-.wardley-map-preview:hover .wardley-map-overlay {
-  background: rgba(0, 0, 0, 0.9);
+.wardley-map-preview:hover .wardley-map-overlay,
+.medium-article-preview:hover .medium-article-overlay {
+  opacity: 1;
 }
 
-.wardley-map-overlay span {
-  font-size: 16px;
-  font-weight: bold;
+.wardley-map-overlay span,
+.medium-article-overlay span {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 25px;
+  border-radius: 4px;
+  max-width: 90%;
+}
+
+@media (max-width: 768px) {
+  .wardley-map-container,
+  .medium-article-container {
+    max-width: 100%;
+  }
+  
+  .wardley-map-overlay span,
+  .medium-article-overlay span {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
 }
 </style>

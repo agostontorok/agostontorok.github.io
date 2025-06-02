@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; img-src 'self' https: data:; font-src 'self' https: data:;">
+
+  <title>
+    
+       Strategy Mapping  &middot; ágoston.török
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|PT+Serif:400,400italic,700,700italic" type="text/css">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/jekyll-github.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <link rel="stylesheet" href="/public/css/showcase.css">
+
+  
+
+  
+
+  
+
+  <style>
+    .content a,
+    .related-posts li a:hover {
+      color: #A85641;
+    }
+    ::selection {
+      color: #fff;
+      background: #A85641;
+    }
+    ::-moz-selection {
+      color: #fff;
+      background: #A85641;
+    }
+  </style>
+
+  <!-- Icons -->
+  <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png"> -->
+  <!-- <link rel="shortcut icon" href="/public/favicon.ico"> -->
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="ágoston.török" href="/atom.xml">
+  
+  <!-- Mathjax -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true,
+        tags: 'ams'
+      }
+    };
+  </script>
+	
+</head>
+
+
+  <body>
+
+    <main class="content container">
+      <article class="page">
+  <h1 class="page-title">Strategy Mapping</h1>
+  <hr/>
+  <div class="strategy-content">
+  <section class="wardley-map-section">
+    <h2>Wardley-Torok Map Creator</h2>
+    <div class="wardley-map-container">
+      <a href="https://wardley-torok-map-creator.windsurf.build/" target="_blank" class="wardley-map-link">
+        <div class="wardley-map-preview">
+          <img src="/images/strategy/wardley-map-preview.png" alt="Wardley-Torok Map Creator Preview" class="preview-image">
+          <div class="wardley-map-overlay">
+            <span>Click to open Wardley-Torok Map Creator in full screen</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <p class="map-description">Interactive tool for creating and exploring Wardley-Torok Maps, which help visualize the evolution of business components and their relationships.</p>
+  </section>
+
+  <section class="medium-article-section">
+    <h2>Featured Article</h2>
+    <div class="medium-article-container">
+      <a href="https://medium.datadriveninvestor.com/how-to-draw-a-strategy-in-4-steps-2e6232e4578f" target="_blank" class="medium-article-link">
+        <div class="medium-article-preview">
+          <img src="/images/strategy/medium-article-preview.png" alt="Medium Article Preview" class="preview-image">
+          <div class="medium-article-overlay">
+            <span>Read on Medium: How to Draw a Strategy in 4 Steps</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <p class="article-description">Learn the fundamentals of strategic mapping and how to effectively communicate your business strategy using Wardley-Torok Maps.</p>
+  </section>
+</div>
+
+<style>
+.strategy-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.wardley-map-preview,
+.medium-article-preview {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.wardley-map-overlay,
+.medium-article-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.wardley-map-preview:hover .wardley-map-overlay,
+.medium-article-preview:hover .medium-article-overlay {
+  background: rgba(0,0,0,0.85);
+}
+
+.wardley-map-section,
+.medium-article-section {
+  margin-bottom: 60px;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.map-description,
+.article-description {
+  margin-top: 15px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.wardley-map-container,
+.medium-article-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wardley-map-container:hover,
+.medium-article-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.wardley-map-link,
+.medium-article-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.wardley-map-preview,
+.medium-article-preview {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.wardley-map-preview {
+  background-image: url('https://wardleymaps.com/static/wardley-maps-9c5f70653d4b882efceb3c0a9afb6e84.png');
+}
+
+.medium-article-preview {
+  background-image: url('https://miro.medium.com/max/1400/1*Q4zZ5XQxYQYQYQYQYQYQ.jpeg');
+  background-color: #f8f9fa;
+}
+
+.wardley-map-overlay,
+.medium-article-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+  text-align: center;
+}
+
+.wardley-map-preview:hover .wardley-map-overlay,
+.medium-article-preview:hover .medium-article-overlay {
+  opacity: 1;
+}
+
+.wardley-map-overlay span,
+.medium-article-overlay span {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 25px;
+  border-radius: 4px;
+  max-width: 90%;
+}
+
+@media (max-width: 768px) {
+  .wardley-map-container,
+  .medium-article-container {
+    max-width: 100%;
+  }
+  
+  .wardley-map-overlay span,
+  .medium-article-overlay span {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+}
+</style>
+
+</div>
+
+    </main>
+
+    
+
+
+
+<div   id="_backdrop"></div>
+<a     id="_menu" href="#_sidebar">☰</a>
+<aside id="_sidebar" class="sidebar" style="background-image:url('/public/img/P1330220.JPG')">
+  <div class="container sidebar-sticky">
+    <nav class="sidebar-nav">
+      
+
+      
+
+      
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/blog/">Blog</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item active" href="/strategy/">Strategy Mapping</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/games/">Board and online games</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/comics/">Comic strips</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/talks/">Talks</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/art/">Art detective</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About me</a>
+          
+        
+      
+    </nav>
+
+    <div class="sidebar-social">
+      
+        <a href="https://github.com/agostontorok"><span class="icon-icon-github"></span></a>
+
+      
+
+      
+        <a href="https://medium.com/@torokagoston"><span class="icon-icon-medium"></span></a>
+      
+      
+      
+        <a href="https://www.instagram.com/tddcomics"><span class="icon-icon-instagram"></span></a>
+      
+      
+      
+        <a href="https://linkedin.com/in/agoston-torok"><span class="icon-icon-linkedin"></span></a>
+
+      
+
+      
+        <a href="https://www.goodreads.com/user/show/78912108-goston-t-r-k"><span class="icon-icon-goodreads"></span></a>
+
+      
+    </div>
+  </div>
+</aside>
+
+
+    <script src="/public/js/hydejack.js" async></script>
+  </body>
+</html>

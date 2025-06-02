@@ -9,7 +9,8 @@ order: 2
     <h2>Wardley-Torok Map Creator</h2>
     <div class="wardley-map-container">
       <a href="https://wardley-torok-map-creator.windsurf.build/" target="_blank" class="wardley-map-link">
-        <div class="wardley-map-preview" style="background-image: url('https://wardley-torok-map-creator.windsurf.build/og-image.png'); background-size: cover; background-position: center;">
+        <div class="wardley-map-preview">
+          <img src="/images/strategy/wardley-map-preview.png" alt="Wardley-Torok Map Creator Preview" class="preview-image">
           <div class="wardley-map-overlay">
             <span>Click to open Wardley-Torok Map Creator in full screen</span>
           </div>
@@ -24,13 +25,14 @@ order: 2
     <div class="medium-article-container">
       <a href="https://medium.datadriveninvestor.com/how-to-draw-a-strategy-in-4-steps-2e6232e4578f" target="_blank" class="medium-article-link">
         <div class="medium-article-preview">
+          <img src="/images/strategy/medium-article-preview.png" alt="Medium Article Preview" class="preview-image">
           <div class="medium-article-overlay">
             <span>Read on Medium: How to Draw a Strategy in 4 Steps</span>
           </div>
         </div>
       </a>
     </div>
-    <p class="article-description">Learn the fundamentals of strategic mapping and how to effectively communicate your business strategy using Wardley Maps.</p>
+    <p class="article-description">Learn the fundamentals of strategic mapping and how to effectively communicate your business strategy using Wardley-Torok Maps.</p>
   </section>
 </div>
 
@@ -39,6 +41,40 @@ order: 2
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.wardley-map-preview,
+.medium-article-preview {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.wardley-map-overlay,
+.medium-article-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.wardley-map-preview:hover .wardley-map-overlay,
+.medium-article-preview:hover .medium-article-overlay {
+  background: rgba(0,0,0,0.85);
 }
 
 .wardley-map-section,

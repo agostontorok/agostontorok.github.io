@@ -1,0 +1,76 @@
+---
+layout: page
+title: Strategy Mapping
+order: 2
+---
+
+<div class="strategy-container">
+  <h1>Strategy Mapping</h1>
+  <p>Interactive Wardley Maps for strategic planning and business analysis.</p>
+  
+  <div class="wardley-map-container">
+    <a href="https://wardley-torok-map-creator.windsurf.build/" target="_blank" class="wardley-map-link">
+      <div class="wardley-map-preview">
+        <img src="/public/img/wardley-map-preview.jpg" alt="Wardley Map Preview">
+        <div class="wardley-map-overlay">
+          <span>Click to open in full screen</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<style>
+.strategy-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.wardley-map-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.wardley-map-preview {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wardley-map-preview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.wardley-map-preview img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wardley-map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.wardley-map-preview:hover .wardley-map-overlay {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.wardley-map-overlay span {
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>

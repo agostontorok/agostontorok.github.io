@@ -96,11 +96,19 @@
     const fill = d3.scaleOrdinal(d3.schemeCategory10);
     const referenceFontSize = window.innerWidth / 1;
     let svg = 0;
-    let centralWordIndex = 23;
+    let centralWordIndices = [];
+    function pickCentralIndices() {
+        centralWordIndices = [];
+        while (centralWordIndices.length < 3) {
+            let idx = Math.floor(Math.random() * words.length);
+            if (!centralWordIndices.includes(idx)) centralWordIndices.push(idx);
+        }
+    }
+    pickCentralIndices();
 
     function generate() {
         words.forEach((d, i) => {
-            d.size = i === centralWordIndex ? 100 : 5 + Math.random() * 30;
+            d.size = centralWordIndices.includes(i) ? 100 : 18 + Math.random() * 14;
         });
 
         const layout = d3.layout.cloud()
@@ -143,7 +151,7 @@
     }
 
     function updateFocus() {
-        centralWordIndex = 46;
+        pickCentralIndices();
         generate();
     }
 

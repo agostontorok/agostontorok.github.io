@@ -8,6 +8,14 @@ gem 'faraday-retry'
 gem 'jekyll-commonmark-ghpages'
 gem 'jekyll-coffeescript'
 
+gem 'nokogiri', '~> 1.15', platforms: [:mingw, :mswin, :x64_mingw, :jruby]  # Windows-only for local dev
+gem 'csv' # Required for Ruby 3.4+ and Jekyll
+gem 'base64' # Required for Ruby 3.4+ and Jekyll
+gem 'safe_yaml' # Required for Ruby 3.4+ and Jekyll
+gem 'yaml' # Required for Ruby 3.4+ and Jekyll
+gem 'json' # Required for Ruby 3.4+ and Jekyll
+gem 'uri' # Required for Ruby 3.4+ and Jekyll
+
 group :jekyll_plugins do
   gem 'jekyll-feed'
   gem 'jekyll-seo-tag'

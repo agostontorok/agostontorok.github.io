@@ -8,7 +8,7 @@ gem 'faraday-retry'
 gem 'jekyll-commonmark-ghpages'
 gem 'jekyll-coffeescript'
 
-gem 'nokogiri', '~> 1.15', platforms: [:mingw, :mswin, :x64_mingw, :jruby]  # Windows-only for local dev
+gem 'nokogiri', '~> 1.15'
 gem 'csv' # Required for Ruby 3.4+ and Jekyll
 gem 'base64' # Required for Ruby 3.4+ and Jekyll
 gem 'safe_yaml' # Required for Ruby 3.4+ and Jekyll

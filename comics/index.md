@@ -7,11 +7,11 @@ tags: [Books, Comics, Humor]
 
 ## Books
 
-I'm looking for a publisher for my Hungarian children's book.
+I'm looking for a publisher for my children's book, written in Hungarian.
 
 ![Book formats]({{ site.baseurl }}/public/img/book_formats.png)
 
-**Description:**
+**Blurp:**
 
 Az erdő szélén áll egy ház. Fahéj- és levendulaillat lengi körbe mindig. Amikor azonban Lola és Erik megérkeznek idén a nyári szünetre, a megszokott mesék helyett csend és egy kimondatlan kérdés fogadja őket: hová lett Nagymama?
 

@@ -149,6 +149,13 @@
         </div>
       </div>
 
+      <div class="toolbar-divider"></div>
+
+      <!-- Help -->
+      <div class="tool-group" role="group" aria-label="Help">
+        <button class="tool-btn" id="btn-help" title="Help & Methodology">Help</button>
+      </div>
+
     </div><!-- end toolbar-groups -->
   </header>
 
@@ -340,6 +347,52 @@
 <!-- PptxGenJS -->
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="app.js"></script>
+<!-- Help Dialog -->
+<dialog id="help-dialog" aria-labelledby="help-title">
+  <div class="dialog-card dialog-card-help" style="max-width: 680px; max-height: 80vh; display: flex; flex-direction: column;">
+    <h3 id="help-title" class="dialog-title" style="margin-bottom: 8px;">Methodology & Help</h3>
+    <div style="flex: 1; overflow-y: auto; padding-right: 8px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: var(--text-secondary);">
+      <p style="margin-bottom: 12px;">
+        This application is a visual strategy mapping tool designed around the methodology outlined in the article 
+        <a href="https://medium.datadriveninvestor.com/how-to-draw-a-strategy-in-4-steps-2e6232e4578f" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline; font-weight: 500;">How to Draw a Strategy in 4 Steps</a> by Ágoston Török.
+      </p>
+
+      <h4 style="color: var(--text-primary); margin-top: 16px; margin-bottom: 6px; font-size: 14px;">The 5-Step Strategy Mapping Process</h4>
+      <ol style="margin-left: 20px; margin-bottom: 16px; padding: 0;">
+        <li style="margin-bottom: 10px;"><strong>Map Your Value Chain (The 2D Space)</strong>:
+          Understand your system by positioning items on a visual canvas. The horizontal (X) axis represents <strong>Evolution</strong> (the maturity of a technology or process, evolving from a raw <em>Idea</em> on the left to a standardized <em>Commodity</em> on the right). 
+          The vertical space is mapped by two Y-axes: <strong>Value Visibility</strong> on the left (ranging from invisible back-end processes at the bottom to high-visibility customer needs at the top) and <strong>Threat Visibility</strong> on the right (mapping threats from high visibility at the bottom to low visibility at the top).
+        </li>
+        <li style="margin-bottom: 10px;"><strong>Map Your Threats and Challenges (Semantic Elements)</strong>:
+          Examine the value chain components and draw blocks for them. Categorize each element using specific semantic types:
+          <ul style="margin-left: 18px; margin-top: 4px; list-style-type: circle; padding: 0;">
+            <li style="margin-bottom: 2px;"><strong>Goal (White Box)</strong>: Your strategic objectives, targets, or customer demands.</li>
+            <li style="margin-bottom: 2px;"><strong>Asset (Blue Box)</strong>: Supporting technologies, custom components, or capabilities.</li>
+            <li style="margin-bottom: 2px;"><strong>Threat (Red Box)</strong>: Competitor actions, blockers, technical debt, or critical risks.</li>
+          </ul>
+        </li>
+        <li style="margin-bottom: 10px;"><strong>Add Past Movements (Past Arrows)</strong>:
+          Draw past movement arrows to document how components have shifted or evolved historically. Past movements are represented as lighter, semi-transparent arrows pointing to the current state of the capability.
+        </li>
+        <li style="margin-bottom: 10px;"><strong>Add Future Movements (Future Arrows)</strong>:
+          Draw future movement arrows to map planned or anticipated changes in capability trajectories. Future movements are represented as prominent, fully opaque arrows showing the direction of growth or change.
+        </li>
+        <li style="margin-bottom: 10px;"><strong>Identify and Formulate the Strategy (Change in Direction)</strong>:
+          True strategy is required where the past and future movement vectors create an angle (a change in direction). Because the past does not dictate where the future is going, the angle between the past and future arrows highlights where active leadership, new resource allocation, or strategic intervention is necessary to steer the capability in a new direction.
+        </li>
+      </ol>
+
+      <h4 style="color: var(--text-primary); margin-top: 16px; margin-bottom: 6px; font-size: 14px;">Co-Creating Strategy with Viewpoints</h4>
+      <p>
+        To make sure people are an active part of the creation and co-creation of the strategy, StratMap uses <strong>Viewpoints</strong> (slides). Each viewpoint captures its own camera frame and carries its own viewpoint-scoped ink drawings and text annotations. This allows teams to collaboratively sketch, debate, and present the strategy step-by-step, transforming strategy from a static document into a shared, living conversation.
+      </p>
+    </div>
+    <div class="dialog-actions" style="margin-top: auto; border-top: 1px solid var(--chrome-border); padding-top: 12px;">
+      <button class="btn btn-primary" id="help-close" style="min-width: 80px;">Got It</button>
+    </div>
+  </div>
+</dialog>
+
 <div id="toast-container" aria-live="assertive" aria-atomic="true"></div>
 </body>
 </html>

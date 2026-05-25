@@ -3736,9 +3736,16 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       if(this._pendingImport){ this._applyImport(this._pendingImport); this._pendingImport=null; }
     });
 
-    // Axis dialog
     document.getElementById('axis-cancel').addEventListener('click',()=>document.getElementById('axis-dialog').close());
     document.getElementById('axis-confirm').addEventListener('click',()=>this._applyAxisLabels());
+
+    // Help dialog
+    document.getElementById('btn-help')?.addEventListener('click', () => {
+      document.getElementById('help-dialog')?.showModal();
+    });
+    document.getElementById('help-close')?.addEventListener('click', () => {
+      document.getElementById('help-dialog')?.close();
+    });
 
 
 

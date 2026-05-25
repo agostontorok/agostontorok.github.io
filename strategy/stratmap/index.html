@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StratMapper — Strategic Mapping Tool</title>
+  <meta name="description" content="A professional visual strategy mapping tool for creating, annotating, and presenting strategy maps with goals, assets, threats, and movement arrows.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══════════════════════════════ TOOLBAR ═══════════════════════════════ -->
+  <header id="toolbar" role="banner">
+    <div class="toolbar-brand">
+      <svg class="brand-icon" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="red-grad-brand" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#db2777" />
+            <stop offset="40%" stop-color="#be123c" />
+            <stop offset="100%" stop-color="#881337" />
+          </linearGradient>
+          <linearGradient id="blue-grad-brand" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284c7" />
+            <stop offset="60%" stop-color="#1d4ed8" />
+            <stop offset="100%" stop-color="#1e3a8a" />
+          </linearGradient>
+        </defs>
+        <line x1="25" y1="25" x2="50" y2="50" stroke="url(#red-grad-brand)" stroke-width="8" stroke-linecap="round" />
+        <line x1="50" y1="50" x2="75" y2="75" stroke="url(#blue-grad-brand)" stroke-width="8" stroke-linecap="round" />
+        <line x1="25" y1="75" x2="50" y2="50" stroke="url(#red-grad-brand)" stroke-width="8" stroke-linecap="round" />
+        <line x1="50" y1="50" x2="75" y2="26" stroke="url(#blue-grad-brand)" stroke-width="8" stroke-linecap="round" />
+        <polygon points="16,16 32,16 16,32" fill="url(#red-grad-brand)" />
+        <polygon points="16,84 16,68 32,84" fill="url(#red-grad-brand)" />
+        <polygon points="84,16 68,16 84,32" fill="url(#blue-grad-brand)" />
+        <polygon points="84,84 84,68 68,84" fill="url(#blue-grad-brand)" />
+        <polygon points="46,10 54,10 54,34 50,42 46,34" fill="url(#red-grad-brand)" />
+        <polygon points="10,46 10,54 34,54 42,50 34,46" fill="url(#red-grad-brand)" />
+        <polygon points="46,90 54,90 54,66 50,58 46,66" fill="url(#blue-grad-brand)" />
+        <polygon points="90,46 90,54 66,54 58,50 66,46" fill="url(#blue-grad-brand)" />
+      </svg>
+      <span>StratMap</span>
+    </div>
+
+    <div class="toolbar-groups">
+
+      <!-- Mode tools -->
+      <div class="tool-group" role="group" aria-label="Drawing mode">
+        <button class="tool-btn mode-btn active" id="tool-select" data-mode="SELECT" title="Select (V)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 9-7 1.5-3.5 6.5L5 3z"/></svg>
+          <span>Select</span>
+        </button>
+        <button class="tool-btn mode-btn" id="tool-draw-group" data-mode="DRAW_GROUP" title="Draw Group boundary (G)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2" fill="currentColor" stroke="none"/></svg>
+          <span>Draw Group</span>
+        </button>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <!-- Add elements -->
+      <div class="tool-group" role="group" aria-label="Add strategy elements">
+        <button class="tool-btn add-btn" id="add-goal" title="Add Goal — White box">
+          <span class="type-dot" style="background:#fff;border:2px solid #333;box-shadow:0 0 0 1px #555"></span>
+          Goal
+        </button>
+        <button class="tool-btn add-btn asset" id="add-asset" title="Add Asset — Blue box">
+          <span class="type-dot" style="background:#2664A0"></span>
+          Asset
+        </button>
+        <button class="tool-btn add-btn threat" id="add-threat" title="Add Threat — Red box">
+          <span class="type-dot" style="background:#DC322F"></span>
+          Threat
+        </button>
+        <button class="tool-btn add-btn text" id="add-text" title="Add Text">
+          <span class="type-dot" style="background:transparent;border:1px dashed #666;color:#ccc;display:flex;align-items:center;justify-content:center;font-size:10px;">T</span>
+          Text
+        </button>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <!-- Arrow tools -->
+      <div class="tool-group" role="group" aria-label="Arrow tools">
+        <button class="tool-btn mode-btn" id="tool-future-arrow" data-mode="DRAW_ARROW_FUTURE" title="Add Future Movement arrow (select source box first)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="4"/><polyline points="9,4 20,4 20,15"/></svg>
+          Future →
+        </button>
+        <button class="tool-btn mode-btn" id="tool-past-arrow" data-mode="DRAW_ARROW_PAST" title="Add Past Movement arrow (select source box first)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 3" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="4"/><polyline points="9,4 20,4 20,15"/></svg>
+          Past ⇢
+        </button>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <!-- History -->
+      <div class="tool-group" role="group" aria-label="History">
+        <button class="tool-btn icon-only" id="btn-undo" title="Undo (Ctrl+Z)" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h10c3.3 0 6 2.7 6 6s-2.7 6-6 6H9"/><polyline points="3,6 3,10 7,10"/></svg>
+        </button>
+        <button class="tool-btn icon-only" id="btn-redo" title="Redo (Ctrl+Shift+Z)" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10H11c-3.3 0-6 2.7-6 6s2.7 6 6 6h4"/><polyline points="21,6 21,10 17,10"/></svg>
+        </button>
+      </div>
+
+      <div class="toolbar-divider" style="margin-left: auto;"></div>
+
+      <!-- View controls -->
+      <div class="tool-group" role="group" aria-label="View controls">
+        <button class="tool-btn icon-only" id="btn-zoom-out" title="Zoom Out (-)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </button>
+        <span id="zoom-display" class="zoom-display">100%</span>
+        <button class="tool-btn icon-only" id="btn-zoom-in" title="Zoom In (+)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </button>
+        <button class="tool-btn icon-only" id="btn-fit" title="Fit to view (F)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+        </button>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <!-- File operations -->
+      <div class="tool-group" role="group" aria-label="File">
+        <button class="tool-btn" id="btn-new" title="Start new strategy">New Strategy</button>
+        <button class="tool-btn" id="btn-import" title="Import JSON map">Import</button>
+        <div class="dropdown-wrap">
+          <button class="tool-btn accent" id="btn-export-menu" title="Export">Export ▾</button>
+          <div class="dropdown-menu" id="export-dropdown" hidden>
+            <button class="dropdown-item" id="export-json">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 2a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H2zm0 1h12a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M3.5 6.5A.5.5 0 014 6h1a.5.5 0 010 1H4v3.5a.5.5 0 01-1 0V6.5z"/><path d="M7 5.5a.5.5 0 01.5.5v4a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v4a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5.5a.5.5 0 00-1 0v4a.5.5 0 001 0V6z"/></svg>
+              JSON <span class="badge">Data</span>
+            </button>
+            <button class="dropdown-item" id="export-png">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6.002 5.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M2.002 1a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V3a2 2 0 00-2-2h-12zm12 1a1 1 0 011 1v6.5l-3.777-1.947a.5.5 0 00-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 00-.63.062L1.002 12V3a1 1 0 011-1h12z"/></svg>
+              PNG <span class="badge">View</span>
+            </button>
+            <button class="dropdown-item" id="export-pdf">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M14 14V4.5L9.5 0H4a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2zM9.5 3A1.5 1.5 0 0011 4.5h2V14a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1h5.5v2z"/></svg>
+              PDF <span class="badge">Deck</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end toolbar-groups -->
+  </header>
+
+  <!-- ═══════════════════════════════ MAIN LAYOUT ═══════════════════════════════ -->
+  <div id="main-layout">
+
+    <!-- Left sidebar: Viewpoints -->
+    <aside id="viewpoints-sidebar" class="sidebar" aria-label="Viewpoints panel">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Viewpoints</h2>
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-left" title="Collapse" aria-expanded="true">‹</button>
+      </div>
+
+      <div id="viewpoints-list" class="viewpoints-list" aria-label="Viewpoints list"></div>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-secondary full-width" id="add-viewpoint-btn">+ Save Current View</button>
+      </div>
+
+    </aside>
+
+    <!-- Middle main area -->
+    <div id="middle-container">
+      <div id="viewpoint-title-display" hidden>
+        <span class="label">VIEWPOINT:</span>
+        <span id="viewpoint-title-text" class="title-text"></span>
+      </div>
+
+      <div id="canvas-wrapper">
+        <canvas id="map-canvas" tabindex="0" aria-label="Strategy map canvas — use mouse to interact"></canvas>
+      </div>
+
+      <div id="viewpoint-desc-display" hidden>
+        <p id="viewpoint-desc-text"></p>
+      </div>
+    </div>
+
+    <!-- Right sidebar: Properties -->
+    <aside id="properties-panel" class="sidebar sidebar-right" aria-label="Properties panel">
+      <div class="sidebar-header">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-right" title="Collapse" aria-expanded="true">›</button>
+        <h2 class="sidebar-title">Properties</h2>
+      </div>
+      <div id="properties-content" class="properties-content">
+        <div class="empty-state">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="14" width="32" height="22" rx="3"/><line x1="15" y1="22" x2="33" y2="22"/><line x1="15" y1="28" x2="27" y2="28"/></svg>
+          <p>Nothing selected</p>
+          <p class="hint">Click an element to see its properties</p>
+        </div>
+      </div>
+    </aside>
+
+  </div><!-- end main-layout -->
+
+  <!-- Status bar -->
+  <footer id="status-bar" role="contentinfo">
+    <span id="status-elements">0 elements</span>
+    <span id="status-mode">Mode: Select</span>
+    <span id="status-hint">Ctrl+Z: Undo &nbsp;|&nbsp; Del: Delete &nbsp;|&nbsp; Scroll: Zoom &nbsp;|&nbsp; Middle-drag: Pan</span>
+  </footer>
+
+</div><!-- end #app -->
+
+<!-- ═══════════════════════════════ DIALOGS ═══════════════════════════════ -->
+
+<!-- Save Viewpoint -->
+<dialog id="viewpoint-dialog" aria-labelledby="vp-title">
+  <div class="dialog-card">
+    <h3 id="vp-title" class="dialog-title">Save Viewpoint</h3>
+    <div class="form-group">
+      <label for="vp-name-input">Title</label>
+      <input type="text" id="vp-name-input" placeholder="e.g., View 1: The Problem" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label for="vp-desc-input">Description</label>
+      <textarea id="vp-desc-input" rows="3" placeholder="Describe what this viewpoint highlights…"></textarea>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn btn-secondary" id="vp-cancel">Cancel</button>
+      <button class="btn btn-primary" id="vp-confirm">Save</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- PNG Export -->
+<dialog id="png-dialog" aria-labelledby="png-title">
+  <div class="dialog-card">
+    <h3 id="png-title" class="dialog-title">Export PNG</h3>
+    <p class="dialog-hint">Choose output resolution:</p>
+    <div class="dpi-options" role="group" aria-label="DPI selection">
+      <label class="dpi-option">
+        <input type="radio" name="dpi" value="72" id="dpi-72">
+        <div class="dpi-card"><span class="dpi-val">72</span><span class="dpi-unit">DPI</span><span class="dpi-name">Screen</span></div>
+      </label>
+      <label class="dpi-option">
+        <input type="radio" name="dpi" value="150" id="dpi-150" checked>
+        <div class="dpi-card"><span class="dpi-val">150</span><span class="dpi-unit">DPI</span><span class="dpi-name">Standard</span></div>
+      </label>
+      <label class="dpi-option">
+        <input type="radio" name="dpi" value="300" id="dpi-300">
+        <div class="dpi-card"><span class="dpi-val">300</span><span class="dpi-unit">DPI</span><span class="dpi-name">Print</span></div>
+      </label>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn btn-secondary" id="png-cancel">Cancel</button>
+      <button class="btn btn-primary" id="png-export">Export</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Import warning -->
+<dialog id="warn-dialog" aria-labelledby="warn-title">
+  <div class="dialog-card">
+    <h3 id="warn-title" class="dialog-title">⚠️ Version Mismatch</h3>
+    <p id="warn-msg" class="dialog-hint"></p>
+    <div class="dialog-actions">
+      <button class="btn btn-secondary" id="warn-cancel">Cancel</button>
+      <button class="btn btn-primary" id="warn-proceed">Load Anyway</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Confirm New Strategy -->
+<dialog id="new-confirm-dialog" aria-labelledby="new-confirm-title">
+  <div class="dialog-card">
+    <h3 id="new-confirm-title" class="dialog-title">⚠️ Start New Strategy?</h3>
+    <p class="dialog-hint">This will discard all boxes, arrows, groups, viewpoints, and drawings from the current strategy map. This action cannot be undone.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-secondary" id="new-confirm-cancel">Cancel</button>
+      <button class="btn btn-danger" id="new-confirm-proceed">Discard & Clear</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Edit axis labels -->
+<dialog id="axis-dialog" aria-labelledby="axis-title">
+  <div class="dialog-card">
+    <h3 id="axis-title" class="dialog-title">Edit Axis Labels</h3>
+    <div class="axis-grid">
+      <div class="form-group">
+        <label for="ax-x-label">X Axis Label</label>
+        <input type="text" id="ax-x-label" placeholder="Evolution">
+      </div>
+      <div class="form-group">
+        <label for="ax-x-left">X Left Label</label>
+        <input type="text" id="ax-x-left" placeholder="Idea">
+      </div>
+      <div class="form-group">
+        <label for="ax-x-right">X Right Label</label>
+        <input type="text" id="ax-x-right" placeholder="Commodity">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-left-label">Left Y Axis Label</label>
+        <input type="text" id="ax-y-left-label" placeholder="Value Visibility">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-left-bottom">Left Y Bottom</label>
+        <input type="text" id="ax-y-left-bottom" placeholder="Low">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-left-top">Left Y Top</label>
+        <input type="text" id="ax-y-left-top" placeholder="High">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-right-label">Right Y Axis Label</label>
+        <input type="text" id="ax-y-right-label" placeholder="Threat Visibility">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-right-bottom">Right Y Bottom</label>
+        <input type="text" id="ax-y-right-bottom" placeholder="High">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-right-top">Right Y Top</label>
+        <input type="text" id="ax-y-right-top" placeholder="Low">
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn btn-secondary" id="axis-cancel">Cancel</button>
+      <button class="btn btn-primary" id="axis-confirm">Apply</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Hidden file input -->
+<input type="file" id="import-file-input" accept=".json" style="display:none" aria-hidden="true">
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+<div id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+</body>
+</html>

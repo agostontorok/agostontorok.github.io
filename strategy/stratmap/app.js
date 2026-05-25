@@ -3665,7 +3665,6 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     document.getElementById('add-goal').addEventListener('click',()=>this._addBox('goal'));
     document.getElementById('add-asset').addEventListener('click',()=>this._addBox('asset'));
     document.getElementById('add-threat').addEventListener('click',()=>this._addBox('threat'));
-    document.getElementById('add-text').addEventListener('click',()=>this._setMode(this.mode==='TEXT'?'SELECT':'TEXT'));
 
     // History
     document.getElementById('btn-undo').addEventListener('click',()=>this.undo());

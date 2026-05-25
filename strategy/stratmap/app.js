@@ -3201,7 +3201,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       this._download(URL.createObjectURL(blob), `stratmap-${Date.now()}.json`);
     } catch(err) {
       console.error(err);
-      this.showToast("Download blocked. Please allow pop-ups for this site.");
+      this.showToast("Export failed: " + err.message);
     }
   }
 
@@ -3228,12 +3228,12 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
           this._download(URL.createObjectURL(blob), `stratmap-${Date.now()}.png`);
         } catch(err) {
           console.error(err);
-          this.showToast("Download blocked. Please allow pop-ups for this site.");
+          this.showToast("Export failed: " + err.message);
         }
       }, 'image/png');
     } catch(err) {
       console.error(err);
-      this.showToast("Download blocked. Please allow pop-ups for this site.");
+      this.showToast("Export failed: " + err.message);
     }
   }
 
@@ -3370,10 +3370,11 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
         }
       }
 
-      pptx.writeFile({ fileName: `stratmap-${Date.now()}.pptx` });
+      const blob = await pptx.write({ outputType: 'blob' });
+      this._download(URL.createObjectURL(blob), `stratmap-${Date.now()}.pptx`);
     } catch(err) {
       console.error(err);
-      this.showToast("Download blocked. Please allow pop-ups for this site.");
+      this.showToast("Export failed: " + err.message);
     }
   }
 
@@ -3506,7 +3507,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       doc.save(`stratmap-${Date.now()}.pdf`);
     } catch(err) {
       console.error(err);
-      this.showToast("Download blocked. Please allow pop-ups for this site.");
+      this.showToast("Export failed: " + err.message);
     }
   }
 

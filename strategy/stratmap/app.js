@@ -890,7 +890,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     ctx.restore();
   }
 
-  _drawTaperedArrow(ctx, base, tip, size, fillCol, strokeCol, isPast, isSel, isPreview, label){
+  _drawTaperedArrow(ctx, base, tip, size, fillCol, strokeCol, isPast, isSel, isPreview, label, labelSize){
     const dx = tip.x - base.x;
     const dy = tip.y - base.y;
     const len = Math.sqrt(dx*dx + dy*dy);
@@ -1009,7 +1009,8 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       ctx.translate(midX, midY);
       ctx.rotate(textAngle);
       
-      const fontSize = this.isExporting ? Math.round(this.canvasFontSize*1.5) : this.canvasFontSize;
+      const baseFontSize = labelSize || 12;
+      const fontSize = this.isExporting ? Math.round(baseFontSize*1.5) : baseFontSize;
       const lw = this.isExporting ? 5 : 3;
       const offset = - (size || 12) * 0.5 - (this.isExporting ? 7 : 4);
       ctx.font = `600 ${fontSize}px ${this.canvasFont}`;
@@ -1056,7 +1057,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     if(isPast){ base=freeEnd; tip=boxEdge; }
     else      { base=boxEdge; tip=freeEnd; }
 
-    this._drawTaperedArrow(ctx, base, tip, ar.size || 12, fillCol, strokeCol, isPast, isSel, false, ar.label);
+    this._drawTaperedArrow(ctx, base, tip, ar.size || 12, fillCol, strokeCol, isPast, isSel, false, ar.label, ar.labelSize);
   }
 
   _renderArrowPreview(){
@@ -1411,7 +1412,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       // Un-rotate the point relative to the box center
       let lx = dx, ly = dy;
       if (box.rot) {
-        const cos = Math.cos(-box.rot), sin = Math.sin(-box.rot);
+        const cos = Math.cos(box.rot), sin = Math.sin(box.rot);
         lx = dx * cos - dy * sin;
         ly = dx * sin + dy * cos;
       }
@@ -1429,7 +1430,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       // Rotate it back to world space
       let wx = ix, wy = iy;
       if (box.rot) {
-        const cos = Math.cos(box.rot), sin = Math.sin(box.rot);
+        const cos = Math.cos(-box.rot), sin = Math.sin(-box.rot);
         wx = ix * cos - iy * sin;
         wy = ix * sin + iy * cos;
       }
@@ -1485,7 +1486,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       let lx = wx - box.x;
       let ly = wy - box.y;
       if (box.rot) {
-        const cos = Math.cos(-box.rot), sin = Math.sin(-box.rot);
+        const cos = Math.cos(box.rot), sin = Math.sin(box.rot);
         const tlx = lx * cos - ly * sin;
         const tly = lx * sin + ly * cos;
         lx = tlx;
@@ -1955,9 +1956,9 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     const dy = cursor.y - rs.y;
 
     // 2. Rotate cursor offset to box's local space (unrotated space)
-    // Since the box is rotated by rs.rot, we rotate the cursor by -rs.rot to align it.
+    // Since the box is rotated by rs.rot, we rotate the cursor by rs.rot to align it.
     const rot = rs.rot || 0;
-    const cos = Math.cos(-rot), sin = Math.sin(-rot);
+    const cos = Math.cos(rot), sin = Math.sin(rot);
     const lx = dx * cos - dy * sin;
     const ly = dx * sin + dy * cos;
 
@@ -1995,7 +1996,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     const localCy = (newB + newT)/2;
 
     // 7. Rotate local center back to world coordinates
-    const cosRot = Math.cos(rot), sinRot = Math.sin(rot);
+    const cosRot = Math.cos(-rot), sinRot = Math.sin(-rot);
     box.x = rs.x + (localCx * cosRot - localCy * sinRot);
     box.y = rs.y + (localCx * sinRot + localCy * cosRot);
     box.w = w;
@@ -2164,7 +2165,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
 
     const arrow={
       id:uid(), sourceId:this.arrowSrcId, z:this.state.nextZ++,
-      movementType, color:null, size:12,
+      movementType, color:null, size:12, labelSize:12,
     };
     if(hit?.type==='box' && hit.id!==this.arrowSrcId){
       arrow.targetId=hit.id;
@@ -3035,6 +3036,13 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
             <span id="prop-arrow-size-val" class="prop-val">${ar.size || 12}</span>
           </div>
         </div>
+        <div class="prop-section">
+          <div class="prop-label">Label Font Size</div>
+          <div class="prop-slider-row">
+            <input type="range" id="prop-arrow-font-size" class="prop-slider" min="8" max="28" value="${ar.labelSize || 12}">
+            <span id="prop-arrow-font-size-val" class="prop-val">${ar.labelSize || 12}px</span>
+          </div>
+        </div>
         <div class="separator"></div>
         <div class="prop-section">
           <div class="prop-label">Layer</div>
@@ -3067,6 +3075,17 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
         this._render();
       });
       sizeSlider.addEventListener('change', () => {
+        this._autosave();
+      });
+      const fontSizeSlider = panel.querySelector('#prop-arrow-font-size');
+      const fontSizeVal = panel.querySelector('#prop-arrow-font-size-val');
+      fontSizeSlider.addEventListener('input', e => {
+        const val = parseInt(e.target.value) || 12;
+        ar.labelSize = val;
+        fontSizeVal.textContent = val + 'px';
+        this._render();
+      });
+      fontSizeSlider.addEventListener('change', () => {
         this._autosave();
       });
       this._bindZOrder(panel);
@@ -3736,9 +3755,16 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       if(this._pendingImport){ this._applyImport(this._pendingImport); this._pendingImport=null; }
     });
 
-    // Axis dialog
     document.getElementById('axis-cancel').addEventListener('click',()=>document.getElementById('axis-dialog').close());
     document.getElementById('axis-confirm').addEventListener('click',()=>this._applyAxisLabels());
+
+    // Help dialog
+    document.getElementById('btn-help')?.addEventListener('click', () => {
+      document.getElementById('help-dialog')?.showModal();
+    });
+    document.getElementById('help-close')?.addEventListener('click', () => {
+      document.getElementById('help-dialog')?.close();
+    });
 
 
 

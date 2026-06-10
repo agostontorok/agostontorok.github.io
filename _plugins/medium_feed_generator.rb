@@ -31,20 +31,11 @@ module Jekyll
         end
       end
       
-      # Get API key from environment
-      api_key = ENV['RSS2JSON_API_KEY']
-      if api_key.nil? || api_key.empty?
-        Jekyll.logger.error "Error: RSS2JSON_API_KEY environment variable is not set"
-        return
-      end
-      Jekyll.logger.info "Debug: Got API key"
-      
       begin
         # Construct the URL
         uri = URI("https://api.rss2json.com/v1/api.json")
         params = {
-          rss_url: "https://medium.com/feed/@torokagoston",
-          api_key: api_key
+          rss_url: "https://medium.com/feed/@torokagoston"
         }
         uri.query = URI.encode_www_form(params)
         

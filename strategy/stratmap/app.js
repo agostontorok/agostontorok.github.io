@@ -3818,7 +3818,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
 
   _newStrategy(){
     this.state=defaultState();
-    this.camera={cx:0.5,cy:0.5,zoom:1.25};
+    this.camera={cx:0.5,cy:0.5,zoom:ZOOM_DEFAULT};
     this.activeVpId=null;
     this.selection=null;
     this.selections=[];

@@ -3,12 +3,21 @@ name: Build and deploy Jekyll site to GitHub Pages
 on:
   push:
     branches:
-      - main  # or master, depending on your default branch name
+      - master
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 6 hours to refresh Medium feed
+    - cron: '0 */6 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  github-pages:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,21 +26,29 @@ jobs:
         with:
           ruby-version: '3.2'
           bundler-cache: true
-        
+
       - name: Install dependencies
         run: |
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-        
+
       - name: Build site
         env:
           JEKYLL_ENV: production
-          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bundle exec jekyll build --trace
-        
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          publish_branch: gh-pages  # Deploy to gh-pages branch
+          path: ./_site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

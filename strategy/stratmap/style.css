@@ -30,9 +30,9 @@
   --asset-fill: #2664A0;
   --asset-stroke: #1A4570;
   --asset-text: #ffffff;
-  --threat-fill: #DC322F;
-  --threat-stroke: #991B1B;
-  --threat-text: #ffffff;
+  --challenge-fill: #DC322F;
+  --challenge-stroke: #991B1B;
+  --challenge-text: #ffffff;
 
   /* Canvas */
   --canvas-bg: #f0f4f8;
@@ -732,8 +732,8 @@ label {
 .type-btn.goal.active  { border-color: #333; }
 .type-btn.asset { background: #2664A0; color: #fff; }
 .type-btn.asset.active  { border-color: #fff; }
-.type-btn.threat{ background: #DC322F; color: #fff; }
-.type-btn.threat.active { border-color: #fff; }
+.type-btn.challenge{ background: #DC322F; color: #fff; }
+.type-btn.challenge.active { border-color: #fff; }
 
 .movement-selector {
   display: flex;
@@ -812,6 +812,34 @@ label {
 }
 .delete-btn:hover { background: rgba(220,50,47,0.2); border-color: rgba(220,50,47,0.5); }
 
+.pos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-top: 4px;
+  max-width: 132px;
+}
+.pos-btn {
+  background: var(--chrome-bg);
+  border: 1px solid var(--chrome-border);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  padding: 4px 2px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.2;
+}
+.pos-btn:hover {
+  background: var(--chrome-hover);
+  color: var(--text-primary);
+}
+.pos-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
 .separator { height: 1px; background: var(--chrome-border); margin: 12px 0; }
 
 /* Global properties (no selection) */
@@ -1071,4 +1099,31 @@ dialog::backdrop {
 @keyframes toast-out {
   from { opacity: 1; transform: scale(1); }
   to { opacity: 0; transform: scale(0.95); }
+}
+
+/* Clean Mode for Screenshots */
+body.clean-mode #viewpoints-sidebar,
+body.clean-mode #properties-panel,
+body.clean-mode header,
+body.clean-mode #status-bar,
+body.clean-mode #viewpoint-title-display,
+body.clean-mode #viewpoint-desc-display {
+  display: none !important;
+}
+body.clean-mode #main-layout {
+  height: 100vh !important;
+}
+body.clean-mode #middle-container {
+  width: 100vw !important;
+  height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.clean-mode #canvas-wrapper {
+  width: 100vw !important;
+  height: 100vh !important;
+}
+body.clean-mode #map-canvas {
+  width: 100vw !important;
+  height: 100vh !important;
 }

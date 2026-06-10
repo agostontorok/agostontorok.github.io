@@ -72,9 +72,9 @@
           <span class="type-dot" style="background:#2664A0"></span>
           Asset
         </button>
-        <button class="tool-btn add-btn threat" id="add-threat" title="Add Threat — Red box">
+        <button class="tool-btn add-btn challenge" id="add-challenge" title="Add Challenge — Red box">
           <span class="type-dot" style="background:#DC322F"></span>
-          Threat
+          Challenge
         </button>
       </div>
 
@@ -147,6 +147,11 @@
             </button>
           </div>
         </div>
+      </div>
+
+      <div class="toolbar-divider"></div>
+
+      <div class="tool-group" role="group" aria-label="Map">
       </div>
 
       <div class="toolbar-divider"></div>
@@ -297,11 +302,15 @@
     <div class="axis-grid">
       <div class="form-group">
         <label for="ax-x-label">X Axis Label</label>
-        <input type="text" id="ax-x-label" placeholder="Evolution">
+        <input type="text" id="ax-x-label" placeholder="Standardization">
       </div>
       <div class="form-group">
         <label for="ax-x-left">X Left Label</label>
         <input type="text" id="ax-x-left" placeholder="Idea">
+      </div>
+      <div class="form-group">
+        <label for="ax-x-middle">X Middle Label</label>
+        <input type="text" id="ax-x-middle" placeholder="MVP">
       </div>
       <div class="form-group">
         <label for="ax-x-right">X Right Label</label>
@@ -313,23 +322,31 @@
       </div>
       <div class="form-group">
         <label for="ax-y-left-bottom">Left Y Bottom</label>
-        <input type="text" id="ax-y-left-bottom" placeholder="Low">
+        <input type="text" id="ax-y-left-bottom" placeholder="Internal">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-left-middle">Left Y Middle</label>
+        <input type="text" id="ax-y-left-middle" placeholder="Customer">
       </div>
       <div class="form-group">
         <label for="ax-y-left-top">Left Y Top</label>
-        <input type="text" id="ax-y-left-top" placeholder="High">
+        <input type="text" id="ax-y-left-top" placeholder="Cultural">
       </div>
       <div class="form-group">
         <label for="ax-y-right-label">Right Y Axis Label</label>
-        <input type="text" id="ax-y-right-label" placeholder="Threat Visibility">
+        <input type="text" id="ax-y-right-label" placeholder="Challenge">
       </div>
       <div class="form-group">
         <label for="ax-y-right-bottom">Right Y Bottom</label>
-        <input type="text" id="ax-y-right-bottom" placeholder="High">
+        <input type="text" id="ax-y-right-bottom" placeholder="Structural">
+      </div>
+      <div class="form-group">
+        <label for="ax-y-right-middle">Right Y Middle</label>
+        <input type="text" id="ax-y-right-middle" placeholder="Frontline">
       </div>
       <div class="form-group">
         <label for="ax-y-right-top">Right Y Top</label>
-        <input type="text" id="ax-y-right-top" placeholder="Low">
+        <input type="text" id="ax-y-right-top" placeholder="Emerging">
       </div>
     </div>
     <div class="dialog-actions">
@@ -360,15 +377,15 @@
       <h4 style="color: var(--text-primary); margin-top: 16px; margin-bottom: 6px; font-size: 14px;">The 5-Step Strategy Mapping Process</h4>
       <ol style="margin-left: 20px; margin-bottom: 16px; padding: 0;">
         <li style="margin-bottom: 10px;"><strong>Map Your Value Chain (The 2D Space)</strong>:
-          Understand your system by positioning items on a visual canvas. The horizontal (X) axis represents <strong>Evolution</strong> (the maturity of a technology or process, evolving from a raw <em>Idea</em> on the left to a standardized <em>Commodity</em> on the right). 
-          The vertical space is mapped by two Y-axes: <strong>Value Visibility</strong> on the left (ranging from invisible back-end processes at the bottom to high-visibility customer needs at the top) and <strong>Threat Visibility</strong> on the right (mapping threats from high visibility at the bottom to low visibility at the top).
+          Understand your system by positioning items on a visual canvas. The horizontal (X) axis represents <strong>Standardization</strong> (how mature and standardized a capability is — from a raw <em>Idea</em> on the left, through an <em>MVP</em> in the middle, to a fully standardized <em>Commodity</em> on the right). 
+          The vertical space is mapped by two Y-axes: <strong>Value Visibility</strong> on the left (from <em>Internal</em> backend processes at the bottom, through <em>Customer</em>-facing products in the middle, to <em>Cultural</em> brand identity at the top) and <strong>Challenge</strong> on the right (from <em>Structural</em> constraints at the bottom, through <em>Frontline</em> battles in the middle, to <em>Emerging</em> threats at the top).
         </li>
         <li style="margin-bottom: 10px;"><strong>Map Your Threats and Challenges (Semantic Elements)</strong>:
           Examine the value chain components and draw blocks for them. Categorize each element using specific semantic types:
           <ul style="margin-left: 18px; margin-top: 4px; list-style-type: circle; padding: 0;">
             <li style="margin-bottom: 2px;"><strong>Goal (White Box)</strong>: Your strategic objectives, targets, or customer demands.</li>
             <li style="margin-bottom: 2px;"><strong>Asset (Blue Box)</strong>: Supporting technologies, custom components, or capabilities.</li>
-            <li style="margin-bottom: 2px;"><strong>Threat (Red Box)</strong>: Competitor actions, blockers, technical debt, or critical risks.</li>
+            <li style="margin-bottom: 2px;"><strong>Challenge (Red Box)</strong>: Competitor actions, blockers, technical debt, or critical risks.</li>
           </ul>
         </li>
         <li style="margin-bottom: 10px;"><strong>Add Past Movements (Past Arrows)</strong>:

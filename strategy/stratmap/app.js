@@ -19,7 +19,7 @@ if (!CanvasRenderingContext2D.prototype.roundRect) {
 // ═══════════════════════════════════════════════════════════════════
 // CONSTANTS
 // ═══════════════════════════════════════════════════════════════════
-const SCHEMA_VERSION = '1.0';
+const SCHEMA_VERSION = '7.2';
 const MARGIN = { top: 50, right: 140, bottom: 68, left: 140 };
 const RDP_EPSILON = 0.004;
 const MAX_HISTORY = 100;
@@ -41,7 +41,7 @@ const BOX_COLORS = {
   challenge: { fill:'#DC322F', stroke:'#991B1B', text:'#FFFFFF', arrowFill:'#DC322F', arrowStroke:'#DC322F' },
 };
 
-const MODES = ['SELECT','DRAW_GROUP','INK','DRAW_ARROW_FUTURE','DRAW_ARROW_PAST', 'TEXT'];
+const MODES = ['SELECT','DRAW_GROUP','INK','DRAW_ARROW_FUTURE','DRAW_ARROW_PAST','TEXT'];
 const MODE_LABELS = {
   SELECT:'Select', DRAW_GROUP:'Draw Group', INK:'Ink Annotation',
   DRAW_ARROW_FUTURE:'Future Arrow', DRAW_ARROW_PAST:'Past Arrow',
@@ -158,7 +158,7 @@ class stratmap {
     this.currentInkPath  = null;
 
     // Arrow creation
-    this.arrowSrcId      = null;
+    this.arrowStart      = null;
     this.arrowPreview    = null;
 
     // Drag
@@ -303,6 +303,7 @@ class stratmap {
     this.canvasFontSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--canvas-font-size').trim()) || 12;
     const ctx=this.ctx, a=this._axisArea();
     ctx.clearRect(0,0,this.cw,this.ch);
+    this._actionBtns = null;
 
     this._renderBackground();
     this._renderGrid();
@@ -315,8 +316,14 @@ class stratmap {
       else if(el._type==='arrow') this._renderArrow(el);
       else if(el._type==='box') this._renderBox(el);
     }
+    // Box action button (hide) on selected box
+    if(this.selection?.type==='box'){
+      const selBox=this.state.boxes.find(b=>b.id===this.selection.id);
+      if(selBox) this._renderBoxActions(selBox);
+    }
+
     // Arrow preview
-    if(this.arrowPreview && this.arrowSrcId){
+    if(this.arrowPreview && this.arrowStart){
       this._renderArrowPreview();
     }
     // Draw group preview
@@ -1118,21 +1125,17 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
 
   _renderArrowPreview(){
     const ctx=this.ctx;
-    const src=this.state.boxes.find(b=>b.id===this.arrowSrcId);
-    if(!src||!this.arrowPreview) return;
+    if(!this.arrowStart||!this.arrowPreview) return;
     const isPast=this.mode==='DRAW_ARROW_PAST';
-    const fillCol = BOX_COLORS[src.type]?.arrowFill || '#888';
-    const strokeCol = BOX_COLORS[src.type]?.arrowStroke || '#888';
-
-    const ep = this._arrowEndpoints(src, this.arrowPreview.x, this.arrowPreview.y);
-    const boxEdge = ep ? this._w2s(ep.sx, ep.sy) : this._w2s(src.x, src.y);
-    const freeEnd = ep ? this._w2s(ep.ex, ep.ey) : this._w2s(this.arrowPreview.x, this.arrowPreview.y);
+    const col = '#888';
+    const startS = this._w2s(this.arrowStart.x, this.arrowStart.y);
+    const endS = this._w2s(this.arrowPreview.x, this.arrowPreview.y);
 
     let base, tip;
-    if(isPast){ base=freeEnd; tip=boxEdge; }
-    else      { base=boxEdge; tip=freeEnd; }
+    if(isPast){ base=startS; tip=endS; }
+    else      { base=endS; tip=startS; }
 
-    this._drawTaperedArrow(ctx, base, tip, 12, fillCol, strokeCol, isPast, false, true);
+    this._drawTaperedArrow(ctx, base, tip, 12, col, col, isPast, false, true);
   }
 
   _renderDrawPreview(){
@@ -1181,6 +1184,15 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     const col=BOX_COLORS[box.type]||BOX_COLORS.goal;
     const r=6;
 
+    // Viewpoint-specific opacity override
+    let vpOpacity=1;
+    if(this.activeVpId){
+      const vp=this.state.viewpoints.find(v=>v.id===this.activeVpId);
+      if(vp && vp.boxOverrides && vp.boxOverrides[box.id]?.opacity!==undefined){
+        vpOpacity=vp.boxOverrides[box.id].opacity;
+      }
+    }
+
     ctx.save();
     ctx.translate(sc.x, sc.y);
     if(box.rot) ctx.rotate(box.rot);
@@ -1201,6 +1213,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
 
       // Fill
       ctx.fillStyle=col.fill;
+      ctx.globalAlpha=vpOpacity;
       ctx.beginPath();
       if(box.type==='goal'){
         ctx.ellipse(0,0,sw/2,sh/2,0,0,Math.PI*2);
@@ -1208,6 +1221,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
         ctx.roundRect(x,y,sw,sh,r);
       }
       ctx.fill();
+      ctx.globalAlpha=1;
       ctx.shadowBlur=0;
 
       // Stroke
@@ -1276,6 +1290,74 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       ctx.fillText(lines[i], 0, startY + i * lineHeight, sw-8);
     }
     
+    ctx.restore();
+  }
+
+  _renderBoxActions(box){
+    const ctx=this.ctx;
+    const sc=this._w2s(box.x,box.y);
+    const sw=this._wDist(box.w);
+    const sh=this._wDistH(box.h);
+
+    const right=sc.x+sw/2;
+    const top=sc.y-sh/2;
+    const sz=22;
+    const gap=4;
+
+    // Check if all selected boxes are hidden in this viewpoint
+    let isHidden=false;
+    if(this.activeVpId){
+      const vp=this.state.viewpoints.find(v=>v.id===this.activeVpId);
+      if(vp && vp.boxOverrides){
+        let allHidden=true, anyBox=false;
+        for(const sel of this.selections){
+          if(sel.type!=='box') continue;
+          anyBox=true;
+          if(vp.boxOverrides[sel.id]?.opacity===undefined){ allHidden=false; break; }
+        }
+        isHidden=anyBox && allHidden;
+      }
+    }
+
+    // Store for hit-testing
+    this._actionBtns = [{type:'hide', x:right-gap-sz, y:top-gap-sz, w:sz, h:sz}];
+
+    ctx.save();
+    const cx=right-gap-sz/2;
+    const cy=top-gap-sz/2;
+
+    // Button background
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.fillStyle='rgba(30,30,30,0.85)';
+    ctx.beginPath();
+    ctx.roundRect(-sz/2,-sz/2,sz,sz,4);
+    ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.3)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+
+    // Icon
+    ctx.strokeStyle='#fff';
+    ctx.fillStyle='#fff';
+    ctx.lineWidth=1.5;
+    if(isHidden){
+      // Closed eye: horizontal line
+      ctx.beginPath();
+      ctx.moveTo(-6,0);
+      ctx.lineTo(6,0);
+      ctx.stroke();
+    } else {
+      // Open eye: ellipse + pupil
+      ctx.beginPath();
+      ctx.ellipse(0,0,7,4,0,0,Math.PI*2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(0,0,2,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    ctx.restore();
     ctx.restore();
   }
 
@@ -1849,10 +1931,23 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
       return;
     }
 
-    // 2. Hit test — run once for both label intercept and selection
+    // 2. Check action buttons on selected box
+    if(this._actionBtns && this.selection?.type==='box'){
+      const btn=this._actionBtns.find(b=>sx>=b.x && sx<=b.x+b.w && sy>=b.y && sy<=b.y+b.h);
+      if(btn){
+        for(const sel of this.selections){
+          if(sel.type==='box') this._applyBoxHide(sel.id);
+        }
+        this._render();
+        this._autosave();
+        return;
+      }
+    }
+
+    // 3. Hit test — run once for both label intercept and selection
     const hit=this._hitTest(world.x,world.y);
 
-    // 2a. Group label drag — intercept before vertex/selection logic
+    // 3a. Group label drag — intercept before vertex/selection logic
     if (hit?.type === 'group-label') {
       const g = this.state.groups.find(gg => gg.id === hit.id);
       if (g) {
@@ -2275,37 +2370,32 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
 
   // ─── ARROW TOOL ────────────────────────────────────────────────
   _arrowMouseDown(world){
-    if(!this.arrowSrcId){
-      // Must have a box selected as source
-      if(this.selection?.type==='box'){
-        this.arrowSrcId=this.selection.id;
-        this.arrowPreview=world;
-      } else {
-        const hit=this._hitTest(world.x,world.y);
-        if(hit?.type==='box'){
-          this.arrowSrcId=hit.id;
-          this.arrowPreview=world;
-        }
-      }
-    }
+    this.arrowStart={x: world.x, y: world.y};
+    this.arrowPreview={x: world.x, y: world.y};
   }
 
   _arrowMouseUp(world){
-    if(!this.arrowSrcId){ return; }
+    if(!this.arrowStart){ return; }
+    const hit=this._hitTest(world.x, world.y);
+    if(!hit || hit.type!=='box'){
+      this.arrowStart=null;
+      this.arrowPreview=null;
+      return;
+    }
     const movementType = this.mode==='DRAW_ARROW_FUTURE' ? 'future' : 'past';
-    const src=this.state.boxes.find(b=>b.id===this.arrowSrcId);
-    if(!src){ this.arrowSrcId=null; this.arrowPreview=null; return; }
+    const src=this.state.boxes.find(b=>b.id===hit.id);
+    if(!src){ this.arrowStart=null; this.arrowPreview=null; return; }
 
     const arrow={
-      id:uid(), sourceId:this.arrowSrcId, z:this.state.nextZ++,
+      id:uid(), sourceId:hit.id, z:this.state.nextZ++,
       movementType, color:null, size:12, labelSize:12,
-      tx:world.x, ty:world.y,
+      tx:this.arrowStart.x, ty:this.arrowStart.y,
     };
     this.state.arrows.push(arrow);
     this.selection={type:'arrow',id:arrow.id};
     this._updatePanel();
     this._pushHistory(`Add ${movementType} Arrow`);
-    this.arrowSrcId=null;
+    this.arrowStart=null;
     this.arrowPreview=null;
     this._setMode('SELECT');
     this._autosave();
@@ -2437,6 +2527,30 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     this._render();
   }
 
+  // ─── BOX HIDE TOGGLE ──────────────────────────────────────────
+  _applyBoxHide(boxId){
+    if(!this.activeVpId) return;
+    const vp=this.state.viewpoints.find(v=>v.id===this.activeVpId);
+    if(!vp) return;
+    if(!vp.boxOverrides) vp.boxOverrides={};
+
+    const cur=vp.boxOverrides[boxId];
+    if(cur && cur.opacity!==undefined){
+      if(Object.keys(cur).length===1) delete vp.boxOverrides[boxId];
+      else { const {opacity:_, ...rest}=cur; vp.boxOverrides[boxId]=rest; }
+    } else {
+      vp.boxOverrides[boxId]={...(cur||{}), opacity:0.1};
+    }
+  }
+
+  _boxHiderClick(world){
+    const hit=this._hitTest(world.x,world.y);
+    if(!hit || hit.type!=='box') return;
+    this._applyBoxHide(hit.id);
+    this._render();
+    this._autosave();
+  }
+
   // ─── HISTORY ───────────────────────────────────────────────────
   _pushHistory(label){
     // Trim redo stack
@@ -2487,7 +2601,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     const vp={
       id:uid(), title, description:desc, order:this.state.viewpoints.length,
       viewport:{cx:this.camera.cx, cy:this.camera.cy, zoom:this.camera.zoom},
-      annotations:[],
+      annotations:[], boxOverrides:{},
     };
     this.state.viewpoints.push(vp);
     this.activeVpId=vp.id;
@@ -2588,7 +2702,6 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
 
         const inkBtnClass = (isInkActive && this.mode === 'INK') ? 'vp-btn active-ink' : 'vp-btn';
         const textBtnClass = (isTextActive || isTextMode) ? 'vp-btn active-text' : 'vp-btn';
-
         let inkOptionsHtml = '';
         if (isInkActive) {
           const activeInkColor = selectedInk ? (selectedInk.color || '#FF0000') : this.inkColor;
@@ -2698,6 +2811,9 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
           <div class="vp-actions">
             <button class="${inkBtnClass}" data-action="toggle-ink" title="Toggle Ink Annotation Mode (I)">✏️ Ink</button>
             <button class="${textBtnClass}" data-action="add-text" title="Add text to this view">T Text</button>
+          </div>
+          <div class="vp-box-hint" style="margin-top:6px; font-size:11px; color:var(--text-muted); line-height:1.4">
+            Click a box on the canvas to toggle hide/show
           </div>
           ${inkOptionsHtml}
           ${textOptionsHtml}`;
@@ -2980,7 +3096,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     this.mode=mode;
     this.drawPath=[];
     this.isDrawing=false;
-    this.arrowSrcId=null;
+    this.arrowStart=null;
     this.arrowPreview=null;
 
     if (mode === 'INK' || mode === 'TEXT') {
@@ -3381,6 +3497,7 @@ function _drawViewportLines(ctx, xMin, xMax, yBottom, xLeft, xRight, yMin, yMax)
     const total=this.state.boxes.length+this.state.arrows.length+this.state.groups.length;
     document.getElementById('status-elements').textContent=
       `${this.state.boxes.length} boxes · ${this.state.arrows.length} arrows · ${this.state.groups.length} groups`;
+    document.getElementById('status-version').textContent=`v${SCHEMA_VERSION}`;
   }
 
   // ─── EXPORT / IMPORT ───────────────────────────────────────────
